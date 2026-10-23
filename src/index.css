@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-pixel: 'Press Start 2P', 'Geist Pixel', monospace;
+  --color-ink: #050505;
+  --color-line: #e5e5e5;
+  --color-tile: #f6f6f6;
+  --color-muted: rgba(0, 0, 0, 0.62);
+  --color-muted-2: rgba(0, 0, 0, 0.42);
+}
+
+:root {
+  --ink: #050505;
+  --muted: rgba(0, 0, 0, 0.62);
+  --muted-2: rgba(0, 0, 0, 0.42);
+  --line: #e5e5e5;
+  --tile: #f6f6f6;
+  --bg: #ffffff;
+  --max: 1340px;
+  --gutter: 48px;
+  --ease-liquid: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Base resets & typography */
+html {
+  scroll-behavior: smooth;
+  cursor: default;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbar for clean carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Liquid button hover with fluid rising fill */
+.liquid-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.45s var(--ease-liquid), border-color 0.45s var(--ease-liquid), transform 0.2s ease;
+}
+
+.liquid-button::before {
+  content: "";
+  position: absolute;
+  inset: -15% -20%;
+  background: var(--ink);
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  transform: translateY(105%);
+  transition: transform 0.55s var(--ease-liquid), border-radius 0.55s var(--ease-liquid);
+  z-index: -1;
+}
+
+.liquid-button:hover {
+  color: #ffffff;
+}
+
+.liquid-button:hover::before {
+  transform: translateY(0);
+  border-radius: 0;
+}
+
+/* Secondary liquid button for inverted surfaces */
+.liquid-button-invert {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.45s var(--ease-liquid);
+}
+
+.liquid-button-invert::before {
+  content: "";
+  position: absolute;
+  inset: -15% -20%;
+  background: #ffffff;
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  transform: translateY(105%);
+  transition: transform 0.55s var(--ease-liquid), border-radius 0.55s var(--ease-liquid);
+  z-index: -1;
+}
+
+.liquid-button-invert:hover {
+  color: #000000;
+}
+
+.liquid-button-invert:hover::before {
+  transform: translateY(0);
+  border-radius: 0;
+}
+
+/* Editorial Serif Heading */
+.font-editorial {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Marquee Animations */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 32s linear infinite;
+}
+
+/* Sound wave pulse */
+@keyframes soundwave {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+.sound-bar-1 { animation: soundwave 1s ease-in-out infinite; }
+.sound-bar-2 { animation: soundwave 0.8s ease-in-out infinite 0.2s; }
+.sound-bar-3 { animation: soundwave 1.2s ease-in-out infinite 0.4s; }
+.sound-bar-4 { animation: soundwave 0.7s ease-in-out infinite 0.1s; }
+
+/* Subtle noise texture */
+.bg-noise {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
