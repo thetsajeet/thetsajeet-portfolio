@@ -69,19 +69,62 @@ export default function HomePage() {
     setTimeout(() => setIsNavigating(false), 500);
   };
 
-  // Track scroll percentage
+  // Track scroll percentage with RAF and cross-browser scroll metrics
   useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    let ticking = false;
+
+    const updateScrollProgress = () => {
+      const scrollY =
+        window.scrollY ??
+        window.pageYOffset ??
+        document.documentElement.scrollTop ??
+        document.body.scrollTop ??
+        0;
+
+      const docHeight = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight,
+        document.documentElement.offsetHeight,
+        document.body.offsetHeight
+      );
+
+      const winHeight =
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight ||
+        1;
+
+      const totalHeight = docHeight - winHeight;
+
       if (totalHeight > 0) {
-        const currentProgress = Math.min(100, Math.max(0, Math.round((window.scrollY / totalHeight) * 100)));
-        setScrollProgress(currentProgress);
+        const percent = Math.min(100, Math.max(0, Math.round((scrollY / totalHeight) * 100)));
+        setScrollProgress(percent);
+      } else {
+        setScrollProgress(0);
+      }
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollProgress);
+        ticking = true;
       }
     };
 
+    // Calculate immediately on mount / enter transition
+    updateScrollProgress();
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [hasEntered]);
 
   return (
     <div id="top" className="relative min-h-screen bg-white text-neutral-900 selection:bg-black selection:text-white">
@@ -96,29 +139,18 @@ export default function HomePage() {
         }} />
       )}
 
-      {/* Left Edge Floating Nominee Ribbon */}
-      <aside
-        className="fixed left-0 top-1/2 -translate-y-1/2 z-30 hidden xl:flex flex-col items-center bg-black text-white px-2 py-4 select-none shadow-lg cursor-pointer group"
-        onClick={() => sound.drop(900)}
-        title="Featured Portfolio & Nominee"
-      >
-        <span className="font-bold text-sm tracking-tighter mb-2 group-hover:scale-110 transition-transform">W.</span>
-        <span className="text-[10px] font-mono uppercase tracking-widest [writing-mode:vertical-lr] rotate-180 text-neutral-300 group-hover:text-white transition-colors">
-          Nominee 2026
-        </span>
-      </aside>
 
       {/* Right Edge Scroll Progress Tracker */}
       <aside
-        className="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col items-center gap-2 select-none"
+        className="fixed right-3 md:right-5 top-1/2 -translate-y-1/2 z-30 hidden sm:flex flex-col items-center gap-2 select-none pointer-events-none"
         aria-label={`Page scroll progress: ${scrollProgress}%`}
       >
-        <span className="text-[11px] font-mono text-neutral-500 tabular-nums">
+        <span className="text-[11px] font-mono font-medium text-neutral-600 tabular-nums">
           {scrollProgress}%
         </span>
-        <div className="w-[1.5px] h-24 bg-neutral-200 relative overflow-hidden rounded-full">
+        <div className="w-[2px] h-24 bg-neutral-200 relative overflow-hidden rounded-full">
           <div
-            className="w-full bg-black transition-all duration-150"
+            className="w-full bg-black transition-[height] duration-75 ease-out"
             style={{ height: `${scrollProgress}%` }}
           ></div>
         </div>

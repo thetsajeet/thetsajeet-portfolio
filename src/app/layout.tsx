@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://thetsajeet.com'),
-  title: 'svg portfolio | ajeet',
+  title: 'Ajeet | Portfolio',
   description: 'Portfolio of T S Ajeet, Senior Software Engineer specializing in resilient backends, modular UI architectures, and Agentic AI.',
   authors: [{ name: 'T S Ajeet', url: 'https://thetsajeet.com' }],
   creator: 'T S Ajeet',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   keywords: [
     'T S Ajeet',
     'Ajeet T S',
-    'svg portfolio',
+    'Ajeet Portfolio',
     'Senior Software Engineer',
     'Agentic AI',
     'Fullstack Engineer',
@@ -43,9 +43,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'profile',
     url: 'https://thetsajeet.com/',
-    title: 'svg portfolio | ajeet',
+    title: 'Ajeet | Portfolio',
     description: 'Portfolio of T S Ajeet, Senior Software Engineer specializing in resilient backends, modular UI architectures, and Agentic AI.',
-    siteName: 'T S Ajeet — svg portfolio',
+    siteName: 'Ajeet | Portfolio',
     locale: 'en_US',
     images: [
       {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'svg portfolio | ajeet',
+    title: 'Ajeet | Portfolio',
     description: 'Portfolio of T S Ajeet, Senior Software Engineer specializing in resilient backends, modular UI architectures, and Agentic AI.',
     site: '@iamtsajeet',
     creator: '@iamtsajeet',
@@ -147,7 +147,7 @@ const jsonLdGraph = {
       '@type': 'WebSite',
       '@id': 'https://thetsajeet.com/#website',
       url: 'https://thetsajeet.com/',
-      name: 'svg portfolio | ajeet',
+      name: 'Ajeet | Portfolio',
       description: 'Portfolio of T S Ajeet, Senior Software Engineer specializing in resilient backends, modular UI architectures, and Agentic AI.',
       publisher: {
         '@id': 'https://thetsajeet.com/#person'
@@ -158,7 +158,7 @@ const jsonLdGraph = {
       '@type': 'ProfilePage',
       '@id': 'https://thetsajeet.com/#profilepage',
       url: 'https://thetsajeet.com/',
-      name: 'svg portfolio | ajeet',
+      name: 'Ajeet | Portfolio',
       isPartOf: {
         '@id': 'https://thetsajeet.com/#website'
       },
