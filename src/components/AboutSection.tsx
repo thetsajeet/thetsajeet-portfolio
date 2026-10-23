@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { PORTFOLIO_DATA } from '../data/portfolio';
 import { MapPin, Code2 } from 'lucide-react';
 import { sound } from '../utils/sound';
@@ -76,11 +77,15 @@ export const AboutSection: React.FC = () => {
           {/* Right Portrait Showcase */}
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200 shadow-md group">
-              {/* Portrait of Ajeet T S */}
-              <img
+              {/* Portrait of T S Ajeet */}
+              <Image
                 src={PORTFOLIO_DATA.profile.profileImage || "/assets/aistudio/image_b4d68d89.png"}
-                alt="Ajeet T S — Senior Software Engineer"
-                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
+                alt="T S Ajeet — Senior Software Engineer"
+                fill
+                sizes="(max-width: 1024px) 100vw, 420px"
+                className="object-cover group-hover:scale-105 transition-all duration-700 ease-out"
+                priority={false}
+                referrerPolicy="no-referrer"
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-90"></div>

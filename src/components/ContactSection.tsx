@@ -47,11 +47,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
       <div className="max-w-[1340px] mx-auto px-6 md:px-12 flex flex-col items-center text-center">
         {/* Call to action headline */}
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-neutral-900 max-w-3xl leading-[1.15]">
-          Looking for a senior software engineer?
+          Let's build something scalable.
         </h2>
 
-        <p className="mt-6 text-lg sm:text-xl text-neutral-600 max-w-xl font-normal">
-          I'd love to hear what you're building and explore how I could contribute to your engineering team, UI architecture, or distributed backend systems.
+        <p className="mt-6 text-lg sm:text-xl text-neutral-600 max-w-2xl font-normal">
+          Whether you're untangling a distributed backend, scaling a UI, or integrating Agentic AI, I'd love to hear about the engineering challenges your team is tackling.
         </p>
 
         {/* 4-Column Hairline Joined Links with Liquid Hover */}

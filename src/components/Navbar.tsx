@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavi
             onNavigate?.();
           }}
           className="group flex items-center cursor-pointer py-2 select-none"
-          aria-label="Ajeet T S Home"
+          aria-label="T S Ajeet Home"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

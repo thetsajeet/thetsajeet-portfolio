@@ -3,22 +3,24 @@ import assert from 'node:assert/strict';
 import { PORTFOLIO_DATA } from '../data/portfolio';
 import userData from '../data/userData.json';
 
-test('userData.json contains exact personal identifiers for Ajeet T S', () => {
-  assert.equal(userData.firstName, 'Ajeet');
-  assert.equal(userData.lastName, 'T S');
-  assert.equal(userData.fullName, 'Ajeet T S');
+test('userData.json contains exact personal identifiers for T S Ajeet', () => {
+  assert.equal(userData.firstName, 'T S');
+  assert.equal(userData.lastName, 'Ajeet');
+  assert.equal(userData.fullName, 'T S Ajeet');
   assert.equal(userData.copyrightName, 'T S Ajeet');
   assert.equal(userData.initials, 'TS');
   assert.equal(userData.role, 'Senior Software Engineer');
-  assert.equal(userData.subtitle, 'UI · Backend · Agentic AI');
+  assert.equal(userData.headline, 'I engineer high-scale distributed systems and intelligent software.');
+  assert.equal(userData.subtitle, 'Specializing in resilient backends, modular UI architectures, and Agentic AI.');
   assert.equal(userData.location, 'India');
   assert.equal(userData.resumeUrl, 'https://thetsajeet.com/Ajeet_TS_Resume.pdf');
   assert.equal(userData.profileImage, '/assets/aistudio/image_b4d68d89.png');
 });
 
-test('userData.json aboutBio and paragraphs reflect senior software engineer across UI, backend, and Agentic AI', () => {
-  assert.ok(userData.aboutBio.includes('senior software engineer'));
-  assert.ok(userData.aboutBio.includes('UI, backend and Agentic AI'));
+test('userData.json aboutBio and paragraphs reflect high-scale enterprise platforms and system resilience', () => {
+  assert.ok(userData.aboutBio.includes('engineered high-scale enterprise platforms for Citi'));
+  assert.ok(userData.aboutBio.includes('sub-second performance'));
+  assert.ok(!userData.aboutBio.includes('Thinker | Tinkerer | Technologist'));
   assert.ok(userData.aboutParagraphs.length >= 3);
   assert.ok(userData.aboutParagraphs.some(p => p.includes('Citi')));
   assert.ok(userData.aboutParagraphs.some(p => p.includes('NIT Trichy')));
@@ -33,12 +35,21 @@ test('userData.json social and contact links are fully defined with authentic pr
   assert.equal(userData.links.resume, 'https://thetsajeet.com/Ajeet_TS_Resume.pdf');
 });
 
-test('userData.json pillars represent UI architecture, backend distributed systems, and agentic AI', () => {
+test('userData.json pillars use active gerunds for UI architecture, backend distributed systems, and agentic AI', () => {
   assert.equal(userData.pillars.length, 3);
   const ids = userData.pillars.map(p => p.id);
   assert.ok(ids.includes('ui-architecture'));
   assert.ok(ids.includes('backend-distributed'));
   assert.ok(ids.includes('agentic-ai'));
+
+  const uiPillar = userData.pillars.find(p => p.id === 'ui-architecture');
+  assert.ok(uiPillar?.description.startsWith('Building performant'));
+
+  const backendPillar = userData.pillars.find(p => p.id === 'backend-distributed');
+  assert.ok(backendPillar?.description.startsWith('Engineering microservice'));
+
+  const aiPillar = userData.pillars.find(p => p.id === 'agentic-ai');
+  assert.ok(aiPillar?.description.startsWith('Architecting autonomous'));
 });
 
 test('userData.json selectedWorks contains Citi, Rege.ai, Form Factory, and DBV Spring Boot starter', () => {

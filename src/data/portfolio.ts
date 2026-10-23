@@ -97,6 +97,7 @@ export interface UserProfile {
   subtitle: string;
   tagline: string;
   headline: string;
+  subheadline: string;
   bio: string;
   aboutParagraphs: string[];
   location: string;
@@ -139,6 +140,7 @@ export const PORTFOLIO_DATA: PortfolioData = {
     subtitle: userData.subtitle,
     tagline: userData.tagline,
     headline: userData.headline,
+    subheadline: userData.subheadline,
     bio: userData.aboutBio,
     aboutParagraphs: userData.aboutParagraphs,
     location: userData.location,

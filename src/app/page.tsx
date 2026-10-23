@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { WaterGateIntro } from '../components/WaterGateIntro';
+import dynamic from 'next/dynamic';
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { Pillars } from '../components/Pillars';
@@ -12,14 +12,36 @@ import { AboutSection } from '../components/AboutSection';
 import { AwardsBand } from '../components/AwardsBand';
 import { ContactSection } from '../components/ContactSection';
 import { Footer } from '../components/Footer';
-import { CaseStudyModal } from '../components/CaseStudyModal';
-import { GenAIModal } from '../components/GenAIModal';
-import { MemoryGameModal } from '../components/MemoryGameModal';
-import { ResumeModal } from '../components/ResumeModal';
-import { Project, GenAIProject } from '../data/portfolio';
 import { TopLoader } from '../components/TopLoader';
+import { Project, GenAIProject } from '../data/portfolio';
 import { Droplets, ArrowUp } from 'lucide-react';
 import { sound } from '../utils/sound';
+
+// Code-split heavy interactive modals and entry animations to optimize Lighthouse performance
+const WaterGateIntro = dynamic(
+  () => import('../components/WaterGateIntro').then((mod) => mod.WaterGateIntro),
+  { ssr: false }
+);
+
+const CaseStudyModal = dynamic(
+  () => import('../components/CaseStudyModal').then((mod) => mod.CaseStudyModal),
+  { ssr: false }
+);
+
+const GenAIModal = dynamic(
+  () => import('../components/GenAIModal').then((mod) => mod.GenAIModal),
+  { ssr: false }
+);
+
+const MemoryGameModal = dynamic(
+  () => import('../components/MemoryGameModal').then((mod) => mod.MemoryGameModal),
+  { ssr: false }
+);
+
+const ResumeModal = dynamic(
+  () => import('../components/ResumeModal').then((mod) => mod.ResumeModal),
+  { ssr: false }
+);
 
 export default function HomePage() {
   const [hasEntered, setHasEntered] = useState<boolean>(false);
@@ -168,26 +190,34 @@ export default function HomePage() {
         onNavigate={triggerNavigation}
       />
 
-      {/* Interactive Modals */}
-      <CaseStudyModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+      {/* Dynamically Loaded Interactive Modals */}
+      {selectedProject && (
+        <CaseStudyModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
 
-      <GenAIModal
-        project={selectedGenAI}
-        onClose={() => setSelectedGenAI(null)}
-      />
+      {selectedGenAI && (
+        <GenAIModal
+          project={selectedGenAI}
+          onClose={() => setSelectedGenAI(null)}
+        />
+      )}
 
-      <MemoryGameModal
-        isOpen={gameModalOpen}
-        onClose={() => setGameModalOpen(false)}
-      />
+      {gameModalOpen && (
+        <MemoryGameModal
+          isOpen={gameModalOpen}
+          onClose={() => setGameModalOpen(false)}
+        />
+      )}
 
-      <ResumeModal
-        isOpen={resumeModalOpen}
-        onClose={() => setResumeModalOpen(false)}
-      />
+      {resumeModalOpen && (
+        <ResumeModal
+          isOpen={resumeModalOpen}
+          onClose={() => setResumeModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

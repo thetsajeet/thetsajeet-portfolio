@@ -1,14 +1,15 @@
 {
-  "firstName": "Ajeet",
-  "lastName": "T S",
-  "fullName": "Ajeet T S",
+  "firstName": "T S",
+  "lastName": "Ajeet",
+  "fullName": "T S Ajeet",
   "copyrightName": "T S Ajeet",
   "initials": "TS",
   "role": "Senior Software Engineer",
-  "subtitle": "UI · Backend · Agentic AI",
-  "tagline": "SENIOR SOFTWARE ENGINEER + UI, BACKEND & AGENTIC AI + INDIA & REMOTE",
-  "headline": "I'm a senior software engineer working across UI, backend and Agentic AI, building high-scale distributed systems and intelligent software.",
-  "aboutBio": "I'm a senior software engineer working across UI, backend and Agentic AI. Thinker | Tinkerer | Technologist. Over the years, I've engineered high-scale enterprise platforms at Citi, built microservice backends and API gateways, and pioneered open-source libraries and Agentic AI workflows.",
+  "subtitle": "Specializing in resilient backends, modular UI architectures, and Agentic AI.",
+  "tagline": "SENIOR SOFTWARE ENGINEER + AGENTIC AI · FULLSTACK + INDIA / REMOTE",
+  "headline": "I engineer high-scale distributed systems and intelligent software.",
+  "subheadline": "Specializing in resilient backends, modular UI architectures, and Agentic AI.",
+  "aboutBio": "Over the last few years, I've engineered high-scale enterprise platforms for Citi, built asynchronous microservice backends, and pioneered open-source Agentic AI workflows. At my core, I care about system resilience and sub-second performance.",
   "aboutParagraphs": [
     "At Citi, I architected and shipped the enterprise Policies Portal UI from scratch using modern modular architectures, empowering 10,000+ employees and cutting feature turnaround by 80%.",
     "I have deep expertise spanning the full engineering spectrum: high-performance frontend interfaces (Next.js, React, Angular, TypeScript), resilient backend systems (Spring Boot, Node.js, Go, Express, gRPC, PostgreSQL, MongoDB), and Agentic AI (autonomous LLM agents, vector embeddings, RAG pipelines).",
@@ -61,21 +62,21 @@
       "id": "ui-architecture",
       "number": "01",
       "title": "UI Architecture & Frontend",
-      "description": "I build performant, modular web applications using Next.js, React, and Angular with typed component libraries, lazy loading, and sub-second rendering.",
+      "description": "Building performant, modular web applications with typed component libraries, lazy loading, and sub-second rendering.",
       "badge": "Scalable Frontend"
     },
     {
       "id": "backend-distributed",
       "number": "02",
       "title": "Backend & Distributed Systems",
-      "description": "I engineer microservice backends, high-throughput REST and gRPC gateways, database validators, and asynchronous messaging pipelines in Spring Boot, Go, and Node.js.",
+      "description": "Engineering microservice architectures, high-throughput gateways, and asynchronous pipelines in Spring Boot, Go, and Node.js.",
       "badge": "Resilient Systems"
     },
     {
       "id": "agentic-ai",
       "number": "03",
       "title": "Agentic AI & LLM Systems",
-      "description": "I architect autonomous agents, real-time RAG retrieval pipelines, semantic resume graph parsers, and tool-calling systems grounded in live data.",
+      "description": "Architecting autonomous agents, real-time RAG retrieval pipelines, and tool-calling systems grounded in live data.",
       "badge": "Autonomous AI"
     }
   ],
@@ -126,10 +127,10 @@
     {
       "id": "rege-ai",
       "title": "Rege.ai — Agentic Resume & Career Engine",
-      "subtitle": "Autonomous career highlight repository and job-tailored resume synthesis",
+      "subtitle": "Autonomous LLM agents that parse job descriptions and synthesize zero-hallucination CVs on the fly.",
       "category": "Agentic AI & Full-Stack",
-      "tagline": "Career highlights, synthesized.",
-      "description": "Store all career milestones in one place. Autonomous LLM agents parse target job descriptions and dynamically orchestrate tailored resumes and CVs with strict zero-hallucination grounding.",
+      "tagline": "Hyper-tailored resumes in under 3 seconds.",
+      "description": "Store all career milestones in one place. Autonomous LLM agents parse target job descriptions and dynamically orchestrate tailored resumes and CVs with strict zero-hallucination grounding in under 3 seconds.",
       "role": "Creator & Lead Architect",
       "timeline": "April 2025 — Present",
       "tools": ["Next.js", "React", "TypeScript", "LLM Agents", "Tailwind CSS", "Vercel"],
