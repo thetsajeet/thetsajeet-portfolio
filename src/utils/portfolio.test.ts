@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { PORTFOLIO_DATA } from '../data/portfolio.ts';
+import { PORTFOLIO_DATA } from '../data/portfolio';
 import userData from '../data/userData.json';
 
 test('userData.json contains exact personal identifiers for Ajeet T S', () => {
@@ -12,7 +12,7 @@ test('userData.json contains exact personal identifiers for Ajeet T S', () => {
   assert.equal(userData.role, 'Senior Software Engineer');
   assert.equal(userData.subtitle, 'UI · Backend · Agentic AI');
   assert.equal(userData.location, 'India');
-  assert.equal(userData.resumeUrl, 'https://tsajeet.com/Ajeet_TS_Resume.pdf');
+  assert.equal(userData.resumeUrl, 'https://thetsajeet.com/Ajeet_TS_Resume.pdf');
   assert.equal(userData.profileImage, '/assets/aistudio/image_b4d68d89.png');
 });
 
@@ -25,12 +25,12 @@ test('userData.json aboutBio and paragraphs reflect senior software engineer acr
 });
 
 test('userData.json social and contact links are fully defined with authentic profiles', () => {
-  assert.equal(userData.links.website, 'https://tsajeet.com/');
+  assert.equal(userData.links.website, 'https://thetsajeet.com/');
   assert.equal(userData.links.github, 'https://github.com/thetsajeet');
   assert.equal(userData.links.linkedin, 'https://www.linkedin.com/in/thetsajeet');
   assert.equal(userData.links.twitter, 'https://x.com/iamtsajeet');
   assert.equal(userData.links.email, 'mailto:ajeet.tumuluru@gmail.com');
-  assert.equal(userData.links.resume, 'https://tsajeet.com/Ajeet_TS_Resume.pdf');
+  assert.equal(userData.links.resume, 'https://thetsajeet.com/Ajeet_TS_Resume.pdf');
 });
 
 test('userData.json pillars represent UI architecture, backend distributed systems, and agentic AI', () => {

@@ -1,46 +1,46 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+'use client';
 
 import React, { useState, useEffect } from 'react';
-import { WaterGateIntro } from './components/WaterGateIntro';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { Pillars } from './components/Pillars';
-import { MarqueeBanner } from './components/MarqueeBanner';
-import { SelectedWorks } from './components/SelectedWorks';
-import { GenAIProjects } from './components/GenAIProjects';
-import { AboutSection } from './components/AboutSection';
-import { AwardsBand } from './components/AwardsBand';
-import { Testimonials } from './components/Testimonials';
-import { ContactSection } from './components/ContactSection';
-import { Footer } from './components/Footer';
-import { CaseStudyModal } from './components/CaseStudyModal';
-import { GenAIModal } from './components/GenAIModal';
-import { MemoryGameModal } from './components/MemoryGameModal';
-import { ResumeModal } from './components/ResumeModal';
-import { Project, GenAIProject } from './data/portfolio';
-import { TopLoader } from './components/TopLoader';
-import { Sparkles, Droplets, ArrowUp } from 'lucide-react';
-import { sound } from './utils/sound';
+import { WaterGateIntro } from '../components/WaterGateIntro';
+import { Navbar } from '../components/Navbar';
+import { Hero } from '../components/Hero';
+import { Pillars } from '../components/Pillars';
+import { MarqueeBanner } from '../components/MarqueeBanner';
+import { SelectedWorks } from '../components/SelectedWorks';
+import { GenAIProjects } from '../components/GenAIProjects';
+import { AboutSection } from '../components/AboutSection';
+import { AwardsBand } from '../components/AwardsBand';
+import { ContactSection } from '../components/ContactSection';
+import { Footer } from '../components/Footer';
+import { CaseStudyModal } from '../components/CaseStudyModal';
+import { GenAIModal } from '../components/GenAIModal';
+import { MemoryGameModal } from '../components/MemoryGameModal';
+import { ResumeModal } from '../components/ResumeModal';
+import { Project, GenAIProject } from '../data/portfolio';
+import { TopLoader } from '../components/TopLoader';
+import { Droplets, ArrowUp } from 'lucide-react';
+import { sound } from '../utils/sound';
 
-export default function App() {
-  const [hasEntered, setHasEntered] = useState<boolean>(() => {
-    // Check if user has ?autostart=1 query param (standard for fast testing)
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('autostart') === '1';
-    }
-    return false;
-  });
-
+export default function HomePage() {
+  const [hasEntered, setHasEntered] = useState<boolean>(false);
+  const [mounted, setMounted] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedGenAI, setSelectedGenAI] = useState<GenAIProject | null>(null);
   const [gameModalOpen, setGameModalOpen] = useState(false);
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isNavigating, setIsNavigating] = useState(false);
+
+  // Check URL params after mount to ensure safe SSR hydration
+  useEffect(() => {
+    setMounted(true);
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('autostart') === '1') {
+        setHasEntered(true);
+      }
+    }
+  }, []);
 
   const triggerNavigation = () => {
     setIsNavigating(true);
@@ -67,14 +67,14 @@ export default function App() {
       <TopLoader isLoading={isNavigating} />
 
       {/* Water Gate Interactive Intro */}
-      {!hasEntered && (
+      {mounted && !hasEntered && (
         <WaterGateIntro onEnter={() => {
           triggerNavigation();
           setHasEntered(true);
         }} />
       )}
 
-      {/* Left Edge Floating Awwwards Nominee Ribbon */}
+      {/* Left Edge Floating Nominee Ribbon */}
       <aside
         className="fixed left-0 top-1/2 -translate-y-1/2 z-30 hidden xl:flex flex-col items-center bg-black text-white px-2 py-4 select-none shadow-lg cursor-pointer group"
         onClick={() => sound.drop(900)}
