@@ -7,6 +7,7 @@ class SoundEngine {
   private ac: AudioContext | null = null;
   private master: GainNode | null = null;
   private noiseBuffer: AudioBuffer | null = null;
+  private backgroundAudio: HTMLAudioElement | null = null;
   private enabled: boolean = true;
   private isUnlocked: boolean = false;
 
@@ -42,7 +43,35 @@ class SoundEngine {
     }
   }
 
+  private syncBackgroundAudio() {
+    if (typeof window === 'undefined') return;
+
+    if (!this.enabled) {
+      this.backgroundAudio?.pause();
+      return;
+    }
+
+    if (!this.backgroundAudio) {
+      this.backgroundAudio = new Audio('/audio/Open_Window_Theory.mp3');
+      this.backgroundAudio.loop = true;
+      this.backgroundAudio.volume = 0.2;
+    }
+
+    if (this.backgroundAudio.paused) {
+      void this.backgroundAudio.play().catch((error: unknown) => {
+        if (
+          error instanceof DOMException &&
+          (error.name === 'NotAllowedError' || error.name === 'AbortError')
+        ) {
+          return;
+        }
+        console.error('Unable to play background audio.', error);
+      });
+    }
+  }
+
   public unlock() {
+    this.syncBackgroundAudio();
     this.init();
     if (!this.ac) return;
     if (this.ac.state === 'suspended') {
@@ -62,6 +91,8 @@ class SoundEngine {
     if (this.enabled) {
       this.unlock();
       this.drop();
+    } else {
+      this.backgroundAudio?.pause();
     }
     return this.enabled;
   }
