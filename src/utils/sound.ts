@@ -11,13 +11,6 @@ class SoundEngine {
   private enabled: boolean = true;
   private isUnlocked: boolean = false;
 
-  constructor() {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('ajeet-sound');
-      this.enabled = stored !== 'off';
-    }
-  }
-
   private init() {
     if (this.ac) return;
     const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
@@ -85,9 +78,6 @@ class SoundEngine {
 
   public toggle(): boolean {
     this.enabled = !this.enabled;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('ajeet-sound', this.enabled ? 'on' : 'off');
-    }
     if (this.enabled) {
       this.unlock();
       this.drop();

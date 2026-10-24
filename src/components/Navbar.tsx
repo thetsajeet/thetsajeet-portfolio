@@ -9,7 +9,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavigate }) => {
-  const [soundEnabled, setSoundEnabled] = useState(sound.isEnabled());
+  const [soundEnabled, setSoundEnabled] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleSound = () => {

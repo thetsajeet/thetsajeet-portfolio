@@ -12,7 +12,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
   const [copied, setCopied] = useState(false);
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [inquirySent, setInquirySent] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', website: '' });
 
   const copyEmail = () => {
     sound.chime();
@@ -26,20 +28,44 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmitInquiry = (e: React.FormEvent) => {
+  const handleSubmitInquiry = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sound.chime();
-    setInquirySent(true);
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { y: 0.7 }
-    });
-    setTimeout(() => {
-      setInquirySent(false);
-      setInquiryOpen(false);
-      setFormData({ name: '', email: '', message: '' });
-    }, 2400);
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitError('');
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const result: unknown = await response.json();
+      if (!response.ok) {
+        const message =
+          typeof result === 'object' &&
+          result !== null &&
+          'error' in result &&
+          typeof result.error === 'string'
+            ? result.error
+            : 'Your message could not be sent. Please try again shortly.';
+        setSubmitError(message);
+        return;
+      }
+
+      sound.chime();
+      setInquirySent(true);
+      setFormData({ name: '', email: '', message: '', website: '' });
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.7 }
+      });
+    } catch {
+      setSubmitError('Unable to send your message right now. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -116,6 +142,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
           <button
             onClick={() => {
               sound.whoosh();
+              setInquirySent(false);
+              setSubmitError('');
               setInquiryOpen(true);
             }}
             className="px-6 py-3 rounded-full bg-neutral-900 hover:bg-black text-white text-sm font-medium tracking-wide flex items-center gap-2 shadow-sm transition-all hover:scale-105 cursor-pointer"
@@ -134,8 +162,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="relative w-full max-w-lg bg-white rounded-3xl p-8 shadow-2xl border border-neutral-200 animate-in zoom-in-95 duration-300">
             <button
-              onClick={() => setInquiryOpen(false)}
+              onClick={() => {
+                setInquiryOpen(false);
+                setInquirySent(false);
+                setSubmitError('');
+              }}
+              disabled={isSubmitting}
               className="absolute top-6 right-6 p-2 rounded-full hover:bg-neutral-100 text-neutral-500 hover:text-black transition-colors"
+              aria-label="Close inquiry form"
             >
               ✕
             </button>
@@ -145,9 +179,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                 <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4">
                   <Check className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-medium text-neutral-900">Message Delivered</h3>
+                <h3 className="text-2xl font-medium text-neutral-900">Message sent</h3>
                 <p className="mt-2 text-neutral-600 text-sm max-w-xs">
-                  Thank you! Ajeet has received your note and will get back to you shortly at your email.
+                  Thank you for reaching out. Your message has been sent successfully.
                 </p>
               </div>
             ) : (
@@ -164,12 +198,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
 
                 <form onSubmit={handleSubmitInquiry} className="mt-6 flex flex-col gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase text-neutral-500 mb-1">
+                    <label htmlFor="contact-name" className="block text-xs font-mono uppercase text-neutral-500 mb-1">
                       Your Name
                     </label>
                     <input
+                      id="contact-name"
                       required
                       type="text"
+                      maxLength={100}
+                      disabled={isSubmitting}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Alex Miller"
@@ -178,12 +215,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase text-neutral-500 mb-1">
+                    <label htmlFor="contact-email" className="block text-xs font-mono uppercase text-neutral-500 mb-1">
                       Your Email
                     </label>
                     <input
+                      id="contact-email"
                       required
                       type="email"
+                      maxLength={254}
+                      disabled={isSubmitting}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="alex@company.com"
@@ -192,12 +232,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase text-neutral-500 mb-1">
+                    <label htmlFor="contact-message" className="block text-xs font-mono uppercase text-neutral-500 mb-1">
                       Message
                     </label>
                     <textarea
+                      id="contact-message"
                       required
                       rows={4}
+                      maxLength={5000}
+                      disabled={isSubmitting}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Tell me a bit about your engineering stack, challenges, or timeline..."
@@ -205,13 +248,34 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                     />
                   </div>
 
+                  <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                    <label htmlFor="contact-website">Leave this field empty</label>
+                    <input
+                      id="contact-website"
+                      type="text"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      disabled={isSubmitting}
+                      value={formData.website}
+                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                    />
+                  </div>
+
+                  {submitError && (
+                    <p role="alert" className="text-sm text-red-700">
+                      {submitError}
+                    </p>
+                  )}
+
                   <div className="mt-2 flex items-center justify-between">
                     <span className="text-xs text-neutral-400">Direct to {PORTFOLIO_DATA.profile.email}</span>
                     <button
                       type="submit"
-                      className="px-6 py-2.5 rounded-full bg-black text-white text-sm font-medium hover:bg-neutral-800 transition-colors"
+                      disabled={isSubmitting}
+                      className="px-6 py-2.5 rounded-full bg-black text-white text-sm font-medium hover:bg-neutral-800 transition-colors disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      Send Message
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </div>
                 </form>
