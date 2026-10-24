@@ -12,7 +12,7 @@ Use development/test credentials and a test inbox when running locally. Resend's
 
 Create an Upstash Redis database and set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`. The endpoint atomically limits each IP to five valid submissions per ten-minute window, using a SHA-256 hash as the Redis key. The key expires automatically.
 
-The route uses `x-real-ip`, then the rightmost address in `x-forwarded-for`. Deploy behind a trusted proxy that overwrites or appends these headers; do not allow clients to set trusted proxy headers directly. The form also uses a honeypot and server-side field and body-size validation.
+The route uses the single-valued `x-real-ip` header by default and validates it as an IP address before using it for rate limiting. Set `CONTACT_CLIENT_IP_HEADER` if your trusted edge overwrites a different single-valued header with the client IP. Configure the edge to overwrite the selected header and prevent clients from setting it directly; the route rejects submissions if the header is missing or invalid. The form also uses a honeypot and server-side field and body-size validation.
 
 ## Local verification
 

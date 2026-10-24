@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { POST } from '../app/api/contact/route';
-import { parseContactSubmission } from './contact';
+import { getClientIp, parseContactSubmission } from './contact';
 
 const validSubmission = {
   name: 'Alex Miller',
@@ -38,6 +38,42 @@ test('contact validation trims fields and rejects invalid or oversized values', 
   assert.equal(parseContactSubmission({ ...validSubmission, email: 'invalid' }).success, false);
   assert.equal(parseContactSubmission({ ...validSubmission, name: 'a'.repeat(101) }).success, false);
   assert.equal(parseContactSubmission({ ...validSubmission, message: 'a'.repeat(5001) }).success, false);
+});
+
+test('client IP lookup validates a configurable single-valued header', () => {
+  const originalHeaderName = process.env.CONTACT_CLIENT_IP_HEADER;
+  delete process.env.CONTACT_CLIENT_IP_HEADER;
+
+  try {
+    assert.equal(getClientIp(new Headers({ 'x-real-ip': ' 203.0.113.10 ' })), '203.0.113.10');
+    assert.equal(getClientIp(new Headers({ 'x-real-ip': 'not-an-ip' })), null);
+    assert.equal(getClientIp(new Headers({ 'x-forwarded-for': '203.0.113.10' })), null);
+
+    process.env.CONTACT_CLIENT_IP_HEADER = 'x-verified-client-ip';
+    assert.equal(
+      getClientIp(new Headers({ 'x-verified-client-ip': '2001:db8::1' })),
+      '2001:db8::1'
+    );
+    assert.equal(getClientIp(new Headers({ 'x-real-ip': '203.0.113.10' })), null);
+  } finally {
+    if (originalHeaderName === undefined) delete process.env.CONTACT_CLIENT_IP_HEADER;
+    else process.env.CONTACT_CLIENT_IP_HEADER = originalHeaderName;
+  }
+});
+
+test('contact route rejects submissions when the configured client IP is unavailable', async () => {
+  const response = await POST(
+    new Request('http://localhost/api/contact', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-real-ip': 'invalid',
+      },
+      body: JSON.stringify(validSubmission),
+    })
+  );
+
+  assert.equal(response.status, 503);
 });
 
 test('contact route treats honeypot submissions as accepted without sending email', async () => {

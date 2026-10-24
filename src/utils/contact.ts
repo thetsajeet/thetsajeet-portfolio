@@ -1,3 +1,5 @@
+import { isIP } from 'node:net';
+
 export interface ContactSubmission {
   name: string;
   email: string;
@@ -50,12 +52,7 @@ export function parseContactSubmission(
 }
 
 export function getClientIp(headers: Headers): string | null {
-  const realIp = headers.get('x-real-ip')?.trim();
-  if (realIp) return realIp;
-
-  const forwardedFor = headers.get('x-forwarded-for');
-  if (!forwardedFor) return null;
-
-  const addresses = forwardedFor.split(',').map((address) => address.trim()).filter(Boolean);
-  return addresses.at(-1) ?? null;
+  const headerName = process.env.CONTACT_CLIENT_IP_HEADER ?? 'x-real-ip';
+  const value = headers.get(headerName)?.trim();
+  return value && isIP(value) ? value : null;
 }
