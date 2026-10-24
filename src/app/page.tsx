@@ -16,13 +16,9 @@ import { TopLoader } from '../components/TopLoader';
 import { Project, GenAIProject } from '../data/portfolio';
 import { Droplets, ArrowUp } from 'lucide-react';
 import { sound } from '../utils/sound';
+import { WaterGateIntro } from '../components/WaterGateIntro';
 
 // Code-split heavy interactive modals and entry animations to optimize Lighthouse performance
-const WaterGateIntro = dynamic(
-  () => import('../components/WaterGateIntro').then((mod) => mod.WaterGateIntro),
-  { ssr: false }
-);
-
 const CaseStudyModal = dynamic(
   () => import('../components/CaseStudyModal').then((mod) => mod.CaseStudyModal),
   { ssr: false }
@@ -45,7 +41,6 @@ const ResumeModal = dynamic(
 
 export default function HomePage() {
   const [hasEntered, setHasEntered] = useState<boolean>(false);
-  const [mounted, setMounted] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedGenAI, setSelectedGenAI] = useState<GenAIProject | null>(null);
   const [gameModalOpen, setGameModalOpen] = useState(false);
@@ -55,7 +50,6 @@ export default function HomePage() {
 
   // Check URL params after mount to ensure safe SSR hydration
   useEffect(() => {
-    setMounted(true);
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('autostart') === '1') {
@@ -132,7 +126,7 @@ export default function HomePage() {
       <TopLoader isLoading={isNavigating} />
 
       {/* Water Gate Interactive Intro */}
-      {mounted && !hasEntered && (
+      {!hasEntered && (
         <WaterGateIntro onEnter={() => {
           triggerNavigation();
           setHasEntered(true);
