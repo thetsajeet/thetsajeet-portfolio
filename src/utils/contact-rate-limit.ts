@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { getContactRateLimitConfig } from './contact-config';
 
 const RATE_LIMIT = 5;
 const WINDOW_SECONDS = 10 * 60;
@@ -6,13 +7,9 @@ const RATE_LIMIT_SCRIPT =
   'local count = redis.call("INCR", KEYS[1]); if count == 1 then redis.call("EXPIRE", KEYS[1], ARGV[1]); end; return count';
 
 export async function isContactRateLimited(clientIp: string): Promise<boolean> {
-  const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
-  const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!redisUrl || !redisToken) {
-    throw new Error('Contact rate limiter is not configured.');
-  }
+  const { restUrl, restToken } = getContactRateLimitConfig();
 
-  const endpoint = new URL(redisUrl);
+  const endpoint = new URL(restUrl);
   if (endpoint.protocol !== 'https:') {
     throw new Error('Contact rate limiter URL must use HTTPS.');
   }
@@ -22,7 +19,7 @@ export async function isContactRateLimited(clientIp: string): Promise<boolean> {
   const response = await fetch(
     `${endpoint.toString().replace(/\/$/, '')}/eval/${encodeURIComponent(RATE_LIMIT_SCRIPT)}/1/${encodeURIComponent(key)}/${WINDOW_SECONDS}`,
     {
-      headers: { Authorization: `Bearer ${redisToken}` },
+      headers: { Authorization: `Bearer ${restToken}` },
       cache: 'no-store',
       signal: AbortSignal.timeout(5_000),
     }

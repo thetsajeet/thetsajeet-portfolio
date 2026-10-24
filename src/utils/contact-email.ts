@@ -1,12 +1,8 @@
 import type { ContactSubmission } from './contact';
+import { getContactEmailConfig } from './contact-config';
 
 export async function sendContactEmail(submission: ContactSubmission): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_EMAIL_FROM;
-  const to = process.env.CONTACT_EMAIL_TO;
-  if (!apiKey || !from || !to) {
-    throw new Error('Contact email is not configured.');
-  }
+  const { apiKey, from, to } = getContactEmailConfig();
 
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',

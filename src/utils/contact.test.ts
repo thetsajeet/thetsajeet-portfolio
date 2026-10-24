@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { POST } from '../app/api/contact/route';
 import { parseContactSubmission } from './contact';
+import { getContactEmailConfig, getContactEnvironment } from './contact-config';
 
 const validSubmission = {
   name: 'Alex Miller',
@@ -40,6 +41,40 @@ test('contact validation trims fields and rejects invalid or oversized values', 
   assert.equal(parseContactSubmission({ ...validSubmission, message: 'a'.repeat(5001) }).success, false);
 });
 
+test('contact environment defaults to development and selects isolated configuration sets', () => {
+  const names = [
+    'CONTACT_ENVIRONMENT',
+    'CONTACT_DEV_RESEND_API_KEY',
+    'CONTACT_DEV_EMAIL_FROM',
+    'CONTACT_DEV_EMAIL_TO',
+    'CONTACT_PROD_RESEND_API_KEY',
+    'CONTACT_PROD_EMAIL_FROM',
+    'CONTACT_PROD_EMAIL_TO',
+  ];
+  const originalEnvironment = Object.fromEntries(names.map((name) => [name, process.env[name]]));
+
+  try {
+    delete process.env.CONTACT_ENVIRONMENT;
+    process.env.CONTACT_DEV_RESEND_API_KEY = 'dev-key';
+    process.env.CONTACT_DEV_EMAIL_FROM = 'Portfolio Dev <dev@example.com>';
+    process.env.CONTACT_DEV_EMAIL_TO = 'dev-inbox@example.com';
+    process.env.CONTACT_PROD_RESEND_API_KEY = 'prod-key';
+    process.env.CONTACT_PROD_EMAIL_FROM = 'Portfolio <example.com>';
+    process.env.CONTACT_PROD_EMAIL_TO = 'owner@example.com';
+    assert.equal(getContactEnvironment(), 'development');
+    assert.equal(getContactEmailConfig().apiKey, 'dev-key');
+
+    process.env.CONTACT_ENVIRONMENT = 'production';
+    assert.equal(getContactEmailConfig().apiKey, 'prod-key');
+  } finally {
+    for (const name of names) {
+      const value = originalEnvironment[name];
+      if (value === undefined) delete process.env[name];
+      else process.env[name] = value;
+    }
+  }
+});
+
 test('contact route treats honeypot submissions as accepted without sending email', async () => {
   const originalFetch = globalThis.fetch;
   let fetchCalled = false;
@@ -75,20 +110,25 @@ test('contact route rejects unsupported content types and oversized bodies', asy
 
 test('contact route sends valid submissions and rate-limits repeated requests', async () => {
   const originalFetch = globalThis.fetch;
-  const originalEnv = {
-    apiKey: process.env.RESEND_API_KEY,
-    from: process.env.CONTACT_EMAIL_FROM,
-    to: process.env.CONTACT_EMAIL_TO,
-    redisUrl: process.env.UPSTASH_REDIS_REST_URL,
-    redisToken: process.env.UPSTASH_REDIS_REST_TOKEN,
-  };
+  const environmentNames = [
+    'CONTACT_ENVIRONMENT',
+    'CONTACT_DEV_RESEND_API_KEY',
+    'CONTACT_DEV_EMAIL_FROM',
+    'CONTACT_DEV_EMAIL_TO',
+    'CONTACT_DEV_UPSTASH_REDIS_REST_URL',
+    'CONTACT_DEV_UPSTASH_REDIS_REST_TOKEN',
+  ];
+  const originalEnvironment = Object.fromEntries(
+    environmentNames.map((name) => [name, process.env[name]])
+  );
   let emailSent = false;
   let rateLimitCalls = 0;
-  process.env.RESEND_API_KEY = 'test-key';
-  process.env.CONTACT_EMAIL_FROM = 'Portfolio <contact@example.com>';
-  process.env.CONTACT_EMAIL_TO = 'owner@example.com';
-  process.env.UPSTASH_REDIS_REST_URL = 'https://redis.example.com';
-  process.env.UPSTASH_REDIS_REST_TOKEN = 'test-token';
+  process.env.CONTACT_ENVIRONMENT = 'development';
+  process.env.CONTACT_DEV_RESEND_API_KEY = 'test-key';
+  process.env.CONTACT_DEV_EMAIL_FROM = 'Portfolio <contact@example.com>';
+  process.env.CONTACT_DEV_EMAIL_TO = 'owner@example.com';
+  process.env.CONTACT_DEV_UPSTASH_REDIS_REST_URL = 'https://redis.example.com';
+  process.env.CONTACT_DEV_UPSTASH_REDIS_REST_TOKEN = 'test-token';
   globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
     if (String(input).includes('/eval/')) {
       rateLimitCalls += 1;
@@ -115,15 +155,10 @@ test('contact route sends valid submissions and rate-limits repeated requests', 
     assert.equal(emailSent, false);
   } finally {
     globalThis.fetch = originalFetch;
-    if (originalEnv.apiKey === undefined) delete process.env.RESEND_API_KEY;
-    else process.env.RESEND_API_KEY = originalEnv.apiKey;
-    if (originalEnv.from === undefined) delete process.env.CONTACT_EMAIL_FROM;
-    else process.env.CONTACT_EMAIL_FROM = originalEnv.from;
-    if (originalEnv.to === undefined) delete process.env.CONTACT_EMAIL_TO;
-    else process.env.CONTACT_EMAIL_TO = originalEnv.to;
-    if (originalEnv.redisUrl === undefined) delete process.env.UPSTASH_REDIS_REST_URL;
-    else process.env.UPSTASH_REDIS_REST_URL = originalEnv.redisUrl;
-    if (originalEnv.redisToken === undefined) delete process.env.UPSTASH_REDIS_REST_TOKEN;
-    else process.env.UPSTASH_REDIS_REST_TOKEN = originalEnv.redisToken;
+    for (const name of environmentNames) {
+      const value = originalEnvironment[name];
+      if (value === undefined) delete process.env[name];
+      else process.env[name] = value;
+    }
   }
 });
