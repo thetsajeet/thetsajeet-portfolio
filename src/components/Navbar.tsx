@@ -10,16 +10,20 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavigate }) => {
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [hasHydrated, setHasHydrated] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    localStorage.removeItem('ajeet-sound');
+    setSoundEnabled(sound.isEnabled());
+    setHasHydrated(true);
   }, []);
 
   const toggleSound = () => {
     const next = sound.toggle();
     setSoundEnabled(next);
   };
+
+  const displayedSoundEnabled = !hasHydrated || soundEnabled;
 
   const handleNavClick = () => {
     sound.tick();
@@ -115,9 +119,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavi
           <button
             onClick={toggleSound}
             className="flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-neutral-200 hover:border-black bg-neutral-50 hover:bg-neutral-100 text-xs font-mono uppercase tracking-wider transition-all cursor-pointer"
-            title={soundEnabled ? "Mute all audio" : "Enable all audio"}
+            title={displayedSoundEnabled ? "Mute all audio" : "Enable all audio"}
           >
-            {soundEnabled ? (
+            {displayedSoundEnabled ? (
               <>
                 <Volume2 className="w-3.5 h-3.5 text-neutral-800" />
                 <span className="flex items-center gap-0.5 h-3">
