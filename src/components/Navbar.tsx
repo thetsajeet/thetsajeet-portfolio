@@ -13,6 +13,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavi
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    sound.loadPreference();
     setSoundEnabled(sound.isEnabled());
   }, []);
 

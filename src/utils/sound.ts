@@ -11,11 +11,9 @@ class SoundEngine {
   private enabled: boolean = true;
   private isUnlocked: boolean = false;
 
-  constructor() {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('ajeet-sound');
-      this.enabled = stored !== 'off';
-    }
+  public loadPreference() {
+    if (typeof window === 'undefined') return;
+    this.enabled = localStorage.getItem('ajeet-sound') !== 'off';
   }
 
   private init() {
