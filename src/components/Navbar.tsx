@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Volume2, VolumeX, Menu, X, ArrowUpRight } from 'lucide-react';
 import { sound } from '../utils/sound';
 
@@ -9,8 +9,12 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavigate }) => {
-  const [soundEnabled, setSoundEnabled] = useState(sound.isEnabled());
+  const [soundEnabled, setSoundEnabled] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setSoundEnabled(sound.isEnabled());
+  }, []);
 
   const toggleSound = () => {
     const next = sound.toggle();
