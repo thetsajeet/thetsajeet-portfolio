@@ -141,6 +141,10 @@ const selectedWorkProjects: GenAIProject[] = userData.selectedWorks.map((work) =
     work.subtitle,
     work.deepDive.challenge,
     work.deepDive.approach,
+    work.deepDive.discovery,
+    ...work.deepDive.keyFeatures.map(
+      (feature) => `${feature.title}: ${feature.desc}`
+    ),
     work.deepDive.impact
   ],
   gradient: work.gradient,

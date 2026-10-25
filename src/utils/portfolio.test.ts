@@ -121,6 +121,21 @@ test('moved case studies are available in the Projects collection', () => {
   assert.ok(projectIds.includes('citi-policies-portal'));
 });
 
+test('moved case studies preserve all deep-dive content in Projects', () => {
+  for (const work of userData.selectedWorks) {
+    const project = PORTFOLIO_DATA.genAIProjects.find(item => item.id === work.id);
+    assert.ok(project);
+    assert.ok(project.storyBody.includes(work.deepDive.challenge));
+    assert.ok(project.storyBody.includes(work.deepDive.approach));
+    assert.ok(project.storyBody.includes(work.deepDive.discovery));
+    assert.ok(project.storyBody.includes(work.deepDive.impact));
+
+    for (const feature of work.deepDive.keyFeatures) {
+      assert.ok(project.storyBody.includes(`${feature.title}: ${feature.desc}`));
+    }
+  }
+});
+
 test('userData.json education and awards accurately reflect NIT Trichy and Hackathon honors', () => {
   assert.ok(userData.education.institution.includes('NIT Trichy') || userData.education.institution.includes('National Institute of Technology (NIT) Trichy'));
   assert.ok(userData.education.degree.includes('Distinction'));
