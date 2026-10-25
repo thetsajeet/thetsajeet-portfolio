@@ -10,6 +10,30 @@ class SoundEngine {
   private backgroundAudio: HTMLAudioElement | null = null;
   private enabled: boolean = true;
   private isUnlocked: boolean = false;
+  private visibilityListenerAdded: boolean = false;
+
+  private handleVisibilityChange = () => {
+    if (document.visibilityState !== 'visible') {
+      this.backgroundAudio?.pause();
+      if (this.ac?.state === 'running') {
+        void this.ac.suspend().catch((error: unknown) => {
+          console.error('Unable to suspend audio while the page is hidden.', error);
+        });
+      }
+      return;
+    }
+
+    if (this.enabled && this.isUnlocked && this.ac?.state === 'suspended') {
+      void this.ac.resume().catch((error: unknown) => {
+        console.error('Unable to resume audio when the page becomes visible.', error);
+      });
+    }
+    this.syncBackgroundAudio();
+  };
+
+  private isPageVisible() {
+    return typeof document === 'undefined' || document.visibilityState === 'visible';
+  }
 
   private init() {
     if (this.ac) return;
@@ -39,7 +63,7 @@ class SoundEngine {
   private syncBackgroundAudio() {
     if (typeof window === 'undefined') return;
 
-    if (!this.enabled) {
+    if (!this.enabled || !this.isPageVisible()) {
       this.backgroundAudio?.pause();
       return;
     }
@@ -64,6 +88,10 @@ class SoundEngine {
   }
 
   public unlock() {
+    if (typeof document !== 'undefined' && !this.visibilityListenerAdded) {
+      document.addEventListener('visibilitychange', this.handleVisibilityChange);
+      this.visibilityListenerAdded = true;
+    }
     this.syncBackgroundAudio();
     this.init();
     if (!this.ac) return;
@@ -95,7 +123,7 @@ class SoundEngine {
    * Delicate water drop sound
    */
   public drop(customFreq?: number) {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
@@ -130,7 +158,7 @@ class SoundEngine {
    * Resonant water bubble
    */
   public bubble() {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
@@ -162,7 +190,7 @@ class SoundEngine {
    * Subtle UI click / tick
    */
   public tick() {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
@@ -194,7 +222,7 @@ class SoundEngine {
    * Smooth swell / whoosh for modal transitions or cards
    */
   public whoosh() {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
@@ -233,7 +261,7 @@ class SoundEngine {
    * Success chime / victory sound
    */
   public chime() {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
