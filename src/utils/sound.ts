@@ -15,21 +15,31 @@ class SoundEngine {
   private handleVisibilityChange = () => {
     if (document.visibilityState !== 'visible') {
       this.backgroundAudio?.pause();
-      if (this.ac?.state === 'running') {
-        void this.ac.suspend().catch((error: unknown) => {
-          console.error('Unable to suspend audio while the page is hidden.', error);
-        });
-      }
-      return;
+    } else {
+      this.syncBackgroundAudio();
     }
 
-    if (this.enabled && this.isUnlocked && this.ac?.state === 'suspended') {
+    this.syncAudioContextState();
+  };
+
+  private handleAudioStateChange = () => {
+    this.syncAudioContextState();
+  };
+
+  private syncAudioContextState() {
+    if (!this.ac) return;
+
+    const shouldRun = this.enabled && this.isUnlocked && this.isPageVisible();
+    if (shouldRun && this.ac.state === 'suspended') {
       void this.ac.resume().catch((error: unknown) => {
-        console.error('Unable to resume audio when the page becomes visible.', error);
+        console.error('Unable to resume audio context.', error);
+      });
+    } else if (!shouldRun && this.ac.state === 'running') {
+      void this.ac.suspend().catch((error: unknown) => {
+        console.error('Unable to suspend audio context.', error);
       });
     }
-    this.syncBackgroundAudio();
-  };
+  }
 
   private isPageVisible() {
     return typeof document === 'undefined' || document.visibilityState === 'visible';
@@ -41,6 +51,7 @@ class SoundEngine {
     if (!AudioContextClass) return;
 
     this.ac = new AudioContextClass();
+    this.ac.addEventListener('statechange', this.handleAudioStateChange);
     this.master = this.ac.createGain();
     this.master.gain.value = 0.28;
 
@@ -95,13 +106,8 @@ class SoundEngine {
     this.syncBackgroundAudio();
     this.init();
     if (!this.ac) return;
-    if (this.ac.state === 'suspended') {
-      this.ac.resume().then(() => {
-        this.isUnlocked = true;
-      }).catch(() => {});
-    } else {
-      this.isUnlocked = true;
-    }
+    this.isUnlocked = true;
+    this.syncAudioContextState();
   }
 
   public toggle(): boolean {
@@ -111,6 +117,7 @@ class SoundEngine {
       this.drop();
     } else {
       this.backgroundAudio?.pause();
+      this.syncAudioContextState();
     }
     return this.enabled;
   }
