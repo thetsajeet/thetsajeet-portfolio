@@ -97,50 +97,59 @@ export const GenAIProjects: React.FC<GenAIProjectsProps> = ({ onSelectProject })
                     {item.summary}
                   </p>
 
-                  <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/10">
+                  <div className="mt-4 flex items-start justify-between pt-3 border-t border-white/10">
                     <div className="flex items-center gap-1.5 text-xs text-white/70 group-hover:text-white transition-colors">
-                      <span>View Prototype</span>
+                      <span>View project</span>
                       <span>→</span>
                     </div>
 
-                    <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                    <ul className="flex flex-col items-end gap-1.5 text-xs" onClick={(e) => e.stopPropagation()}>
+                      {item.live && (
+                        <li key="site">
+                          <a
+                            href={item.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => sound.drop(800)}
+                            className="inline-flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
+                            aria-label={`Visit ${item.title} site`}
+                          >
+                            <span>Site</span>
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        </li>
+                      )}
                       {item.github && (
-                        <a
-                          href={item.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => sound.drop(800)}
-                          className="p-1.5 rounded-full hover:bg-white/20 transition-colors text-white/80 hover:text-white"
-                          title="View on GitHub"
-                        >
-                          <Github className="w-3.5 h-3.5" />
-                        </a>
+                        <li key="repo">
+                          <a
+                            href={item.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => sound.drop(800)}
+                            className="inline-flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
+                            aria-label={`View ${item.title} source on GitHub`}
+                          >
+                            <span>Repo</span>
+                            <Github className="w-3.5 h-3.5" />
+                          </a>
+                        </li>
                       )}
                       {item.npm && (
-                        <a
-                          href={item.npm}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => sound.drop(800)}
-                          className="p-1.5 rounded-full hover:bg-white/20 transition-colors text-white/80 hover:text-white"
-                          title="View on NPM"
-                        >
-                          <Package className="w-3.5 h-3.5" />
-                        </a>
+                        <li key="package">
+                          <a
+                            href={item.npm}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => sound.drop(800)}
+                            className="inline-flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
+                            aria-label={`View ${item.title} package on npm`}
+                          >
+                            <span>Package</span>
+                            <Package className="w-3.5 h-3.5" />
+                          </a>
+                        </li>
                       )}
-                      {item.live && (
-                        <a
-                          href={item.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => sound.drop(800)}
-                          className="p-1.5 rounded-full hover:bg-white/20 transition-colors text-white/80 hover:text-white"
-                          title="View Live App"
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                    </div>
+                    </ul>
                   </div>
                 </div>
               </div>

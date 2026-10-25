@@ -6,24 +6,19 @@ import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { Pillars } from '../components/Pillars';
 import { MarqueeBanner } from '../components/MarqueeBanner';
-import { SelectedWorks } from '../components/SelectedWorks';
+import { Career } from '../components/Career';
 import { GenAIProjects } from '../components/GenAIProjects';
 import { AboutSection } from '../components/AboutSection';
 import { AwardsBand } from '../components/AwardsBand';
 import { ContactSection } from '../components/ContactSection';
 import { Footer } from '../components/Footer';
 import { TopLoader } from '../components/TopLoader';
-import { Project, GenAIProject } from '../data/portfolio';
+import { GenAIProject } from '../data/portfolio';
 import { Droplets, ArrowUp } from 'lucide-react';
 import { sound } from '../utils/sound';
 import { WaterGateIntro } from '../components/WaterGateIntro';
 
 // Code-split heavy interactive modals and entry animations to optimize Lighthouse performance
-const CaseStudyModal = dynamic(
-  () => import('../components/CaseStudyModal').then((mod) => mod.CaseStudyModal),
-  { ssr: false }
-);
-
 const GenAIModal = dynamic(
   () => import('../components/GenAIModal').then((mod) => mod.GenAIModal),
   { ssr: false }
@@ -41,7 +36,6 @@ const ResumeModal = dynamic(
 
 export function HomePageClient({ initialHasEntered }: { initialHasEntered: boolean }) {
   const [hasEntered, setHasEntered] = useState<boolean>(initialHasEntered);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedGenAI, setSelectedGenAI] = useState<GenAIProject | null>(null);
   const [gameModalOpen, setGameModalOpen] = useState(false);
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
@@ -185,10 +179,7 @@ export function HomePageClient({ initialHasEntered }: { initialHasEntered: boole
         <Hero />
         <Pillars />
         <MarqueeBanner />
-        <SelectedWorks onSelectProject={(p) => {
-          triggerNavigation();
-          setSelectedProject(p);
-        }} />
+        <Career />
         <GenAIProjects onSelectProject={(p) => {
           triggerNavigation();
           setSelectedGenAI(p);
@@ -205,14 +196,6 @@ export function HomePageClient({ initialHasEntered }: { initialHasEntered: boole
         onOpenResume={() => setResumeModalOpen(true)}
         onNavigate={triggerNavigation}
       />
-
-      {/* Dynamically Loaded Interactive Modals */}
-      {selectedProject && (
-        <CaseStudyModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
-      )}
 
       {selectedGenAI && (
         <GenAIModal

@@ -331,47 +331,60 @@
   "workExperience": [
     {
       "company": "Citi",
-      "role": "Technology Analyst (Senior Software Engineer)",
+      "role": "Senior Software Engineer",
+      "project": "Arthur Agentic AI",
       "period": "July 2023 — Present",
       "location": "India",
+      "focus": ["Agentic AI", "Risk management", "Document review", "Workflow automation"],
       "highlights": [
-        "Built the Policies Portal UI from the ground up using modern modular architecture, enabling 10,000+ Citi employees to manage policy breaches, waivers, and dispensations.",
-        "Designed and developed reusable custom UI components like Single Item Transfer, reducing development time for new features by 80%.",
-        "Spearheaded Smart Policy Search UI, empowering employees to query across 1,000+ policies with advanced filtering, sorting, and custom groupings.",
-        "Implemented lazy-loaded feature modules, improving bundle size and First Contentful Paint (FCP) by 25%.",
-        "Secured a Gold award at the Citi India Hackathon 2024 for fintech contributions and Bronze award in 2023 for project delivery ownership."
+        "Built Arthur, an agentic AI system that helps risk managers triage issues, review documents, and streamline complex workflows that can otherwise take 10–15 days.",
+        "Developed AI-assisted workflows that bring issue context and supporting documents together to help teams assess risk and move decisions forward faster."
       ]
     },
     {
       "company": "Citi",
-      "role": "Technology Analyst Intern",
+      "role": "Software Engineer (C10)",
+      "project": "Configurable ML Prediction Framework",
+      "location": "India",
+      "focus": ["Machine learning", "Deep learning", "Runtime configuration", "Prediction pipelines"],
+      "highlights": [
+        "Designed a configurable machine-learning prediction framework that accepts runtime inputs such as datasets and ML/DL architecture choices, then runs predictions through a reusable pipeline.",
+        "Made it possible to adapt prediction workflows to different data and model requirements without rebuilding the framework for each use case."
+      ]
+    },
+    {
+      "company": "Citi",
+      "role": "Junior Software Engineer (C09)",
+      "project": "Policies Ecosystem Portal",
+      "location": "India",
+      "focus": ["Policy search", "Favourites", "Backend optimization", "UI optimization"],
+      "highlights": [
+        "Built an end-to-end policies portal where employees can search across policies and save frequently used policies to favourites.",
+        "Improved backend performance and UI responsiveness to make policy discovery and everyday workflows more efficient."
+      ]
+    },
+    {
+      "company": "Citi",
+      "role": "Software Engineering Intern (C09)",
+      "project": "Enterprise Operations Dashboard",
       "period": "May 2022 — July 2022",
       "location": "India",
+      "focus": ["Angular", "Spring Boot", "Configurable CI/CD", "Process automation"],
       "highlights": [
-        "Shaped a minimalist dashboard, streamlining the management of 100+ Oracle-hosted enterprise databases.",
-        "Enhanced data clarity and actionable operational insights by 40% through interactive charts and data tables.",
-        "Secured a Pre-Placement Offer (PPO) by consistently exceeding delivery expectations."
+        "Contributed to an Angular and Spring Boot dashboard for enterprise database operations.",
+        "Orchestrated the delivery workflow through configurable CI/CD pipelines, reducing manual coordination and helping teams ship changes faster."
       ]
     },
     {
       "company": "Finllect",
-      "role": "Junior Backend Developer",
-      "period": "Dec 2021 — March 2022",
-      "location": "Dubai / Remote",
-      "highlights": [
-        "Implemented Finllect API Gateway as a single point of entry for all incoming backend requests.",
-        "Designed and developed REST APIs for User, Transaction, and Coupon modules.",
-        "Developed asynchronous communication services enabling decoupled and non-blocking interaction between systems, improving scalability."
-      ]
-    },
-    {
-      "company": "Finllect",
-      "role": "Backend Developer Intern",
+      "role": "Software Engineering Intern",
+      "project": "Financial Literacy Platform",
       "period": "Dec 2020 — March 2021",
       "location": "Remote",
+      "focus": ["Node.js", "Budgeting", "Transaction tracking", "Milestone rewards"],
       "highlights": [
-        "Collaborated directly with CTO to build REST APIs using Express and MongoDB.",
-        "Proposed and implemented SlackBot for real-time transactional activity notifications, widely adopted by the team."
+        "Built Node.js backend capabilities for a financial-literacy platform that helps Gen Z develop practical budgeting and planning habits.",
+        "Supported features for creating budgets, tracking and uploading transactions, and earning milestone-based coupons."
       ]
     }
   ],
