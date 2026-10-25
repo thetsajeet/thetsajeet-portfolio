@@ -82,6 +82,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavi
           >
             Projects
           </a>
+          <a
+            href="/blog"
+            onClick={handleNavClick}
+            className="hover:text-black hover:underline underline-offset-8 transition-colors"
+          >
+            Blog
+          </a>
           <button
             onClick={() => {
               sound.chime();
@@ -165,6 +172,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavi
             className="text-xl font-medium text-neutral-900 border-b border-neutral-100 pb-3"
           >
             Projects
+          </a>
+          <a
+            href="/blog"
+            onClick={handleNavClick}
+            className="text-xl font-medium text-neutral-900 border-b border-neutral-100 pb-3"
+          >
+            Blog
           </a>
           <a
             href="#contact"
