@@ -35,6 +35,23 @@ function requiredString(data: Record<string, unknown>, key: string, filePath: st
   return value.trim();
 }
 
+function requiredDate(data: Record<string, unknown>, key: string, filePath: string) {
+  const value = requiredString(data, key, filePath);
+
+  if (!isValidPublishedAt(value)) {
+    throw new Error(`Blog post "${filePath}" must define "${key}" as a valid YYYY-MM-DD date.`);
+  }
+
+  return value;
+}
+
+export function isValidPublishedAt(value: string) {
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+    !Number.isNaN(parsed.getTime()) &&
+    parsed.toISOString().slice(0, 10) === value;
+}
+
 function requiredOrder(data: Record<string, unknown>, filePath: string) {
   const order = data.order;
   if (typeof order !== 'number' || !Number.isInteger(order) || order < 1) {
@@ -66,11 +83,35 @@ function getCoverDetails(data: Record<string, unknown>, filePath: string) {
   return { coverImage, coverAlt: coverAlt.trim() };
 }
 
-function getHeadings(content: string): BlogHeading[] {
+export function getHeadings(content: string): BlogHeading[] {
   const slugger = new GithubSlugger();
   const headings: BlogHeading[] = [];
+  const lines = content.split('\n');
+  const markdownLines: string[] = [];
+  let fenceCharacter: '`' | '~' | undefined;
+  let fenceLength = 0;
 
-  for (const match of content.matchAll(headingPattern)) {
+  for (const line of lines) {
+    const fence = line.match(/^ {0,3}(`{3,}|~{3,})/);
+    if (!fenceCharacter && fence) {
+      fenceCharacter = fence[1][0] === '`' ? '`' : '~';
+      fenceLength = fence[1].length;
+      continue;
+    }
+
+    if (fenceCharacter) {
+      const closingFence = line.match(/^ {0,3}(`+|~+)[ \t]*$/);
+      if (closingFence && closingFence[1][0] === fenceCharacter && closingFence[1].length >= fenceLength) {
+        fenceCharacter = undefined;
+        fenceLength = 0;
+      }
+      continue;
+    }
+
+    markdownLines.push(line);
+  }
+
+  for (const match of markdownLines.join('\n').matchAll(headingPattern)) {
     const text = match[2].replace(/`([^`]*)`/g, '$1').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
     headings.push({
       depth: match[1].length,
@@ -95,7 +136,7 @@ function readPost(fileName: string): BlogPost {
     title: requiredString(data, 'title', fileName),
     subtitle: requiredString(data, 'subtitle', fileName),
     category: requiredString(data, 'category', fileName),
-    publishedAt: requiredString(data, 'publishedAt', fileName),
+    publishedAt: requiredDate(data, 'publishedAt', fileName),
     ...coverDetails,
     excerpt: requiredString(data, 'excerpt', fileName),
     readingTime: `${Math.max(1, Math.ceil(wordCount / 200))} min read`,

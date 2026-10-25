@@ -5,6 +5,7 @@ import { ArrowLeft, Clock3 } from 'lucide-react';
 import { BlogCoverArt } from '@/components/BlogCoverArt';
 import { BlogMarkdown } from '@/components/BlogMarkdown';
 import { getBlogPost, getBlogPosts } from '@/data/blog';
+import { serializeJsonLd } from '@/utils/json-ld';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -110,7 +111,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </article>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleJsonLd) }}
       />
     </main>
   );

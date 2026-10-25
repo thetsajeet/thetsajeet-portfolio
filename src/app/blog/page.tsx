@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowDown, ArrowUpRight, Clock3 } from 'lucide-react';
-import { BlogCoverArt } from '@/components/BlogCoverArt';
+import { ArrowDown } from 'lucide-react';
+import { BlogPostCard } from '@/components/BlogPostCard';
 import { getBlogPosts } from '@/data/blog';
 
 export const metadata: Metadata = {
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function BlogHomePage() {
   const blogPosts = getBlogPosts();
-  const featuredPost = blogPosts[0];
+  const [featuredPost, ...remainingPosts] = blogPosts;
 
   if (!featuredPost) {
     return (
@@ -51,27 +50,8 @@ export default function BlogHomePage() {
           <h2 id="writing-heading">The writing</h2>
           <span>{String(blogPosts.length).padStart(2, '0')} {blogPosts.length === 1 ? 'ARTICLE' : 'ARTICLES'}</span>
         </div>
-        <Link className="blog-feature" href={`/blog/${featuredPost.slug}`}>
-          <BlogCoverArt
-            category={featuredPost.category}
-            order={featuredPost.order}
-            coverImage={featuredPost.coverImage}
-            coverAlt={featuredPost.coverAlt}
-            compact
-          />
-          <div className="blog-feature-copy">
-            <div className="blog-post-meta">
-              <span>{featuredPost.category}</span>
-              <span>{new Date(`${featuredPost.publishedAt}T12:00:00`).toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-            </div>
-            <h3>{featuredPost.title}</h3>
-            <p>{featuredPost.excerpt}</p>
-            <div className="blog-feature-bottom">
-              <span className="blog-reading-time"><Clock3 size={14} /> {featuredPost.readingTime}</span>
-              <span className="blog-read-link">Read article <ArrowUpRight size={16} /></span>
-            </div>
-          </div>
-        </Link>
+        <BlogPostCard post={featuredPost} featured />
+        {remainingPosts.map((post) => <BlogPostCard key={post.slug} post={post} />)}
       </section>
 
       <section className="blog-note">

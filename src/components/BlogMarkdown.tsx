@@ -34,11 +34,11 @@ export function BlogMarkdown({ content, excerpt }: { content: string; excerpt: s
           h2: ({ children, ...props }) => <h2 className="blog-article-section-heading" {...props}>{children}</h2>,
           h3: ({ children, ...props }) => <h3 className="blog-article-subheading" {...props}>{children}</h3>,
           pre: ({ children }) => {
-            const codeElement = React.Children.only(children);
-            if (
-              React.isValidElement<{ className?: string; children?: React.ReactNode }>(codeElement) &&
-              codeElement.props.className?.split(/\s+/).includes('language-mermaid')
-            ) {
+            const codeElement = React.Children.toArray(children).find(
+              (child): child is React.ReactElement<{ className?: string; children?: React.ReactNode }> =>
+                React.isValidElement(child) && child.type === 'code'
+            );
+            if (codeElement?.props.className?.split(/\s+/).includes('language-mermaid')) {
               const chart = React.Children.toArray(codeElement.props.children)
                 .map((child) => typeof child === 'string' ? child : '')
                 .join('');
