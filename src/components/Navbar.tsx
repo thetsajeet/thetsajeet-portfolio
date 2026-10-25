@@ -73,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavi
             onClick={handleNavClick}
             className="hover:text-black hover:underline underline-offset-8 transition-colors"
           >
-            Works
+            Career
           </a>
           <a
             href="#projects"
@@ -157,7 +157,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavi
             onClick={handleNavClick}
             className="text-xl font-medium text-neutral-900 border-b border-neutral-100 pb-3"
           >
-            Works
+            Career
           </a>
           <a
             href="#projects"

@@ -83,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenGame, onOpenResume, onNavi
                     onClick={handleLinkClick}
                     className="hover:text-black transition-colors"
                   >
-                    Selected Works
+                    Career
                   </a>
                 </li>
                 <li>

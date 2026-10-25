@@ -79,9 +79,11 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                     <strong className="text-base font-semibold text-neutral-900">
                       {job.role}
                     </strong>
-                    <span className="font-mono text-neutral-500 text-xs">
-                      {job.period}
-                    </span>
+                    {job.period && (
+                      <span className="font-mono text-neutral-500 text-xs">
+                        {job.period}
+                      </span>
+                    )}
                   </div>
                   <div className="text-xs font-medium text-indigo-600 mt-0.5">
                     {job.company} · {job.location}

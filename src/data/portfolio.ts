@@ -75,9 +75,11 @@ export interface Award {
 export interface WorkExperience {
   company: string;
   role: string;
-  period: string;
+  project: string;
+  period?: string;
   location: string;
   highlights: string[];
+  focus: string[];
 }
 
 export interface Education {
@@ -129,6 +131,29 @@ export interface PortfolioData {
   awards: Award[];
 }
 
+const selectedWorkProjects: GenAIProject[] = userData.selectedWorks.map((work) => ({
+  id: work.id,
+  title: work.title,
+  tag: work.category,
+  summary: work.description,
+  storyHeading: work.tagline,
+  storyBody: [
+    work.subtitle,
+    work.deepDive.challenge,
+    work.deepDive.approach,
+    work.deepDive.discovery,
+    ...work.deepDive.keyFeatures.map(
+      (feature) => `${feature.title}: ${feature.desc}`
+    ),
+    work.deepDive.impact
+  ],
+  gradient: work.gradient,
+  demoType: 'sorter',
+  metrics: work.metrics.map((metric) => `${metric.value} ${metric.label}`).join(' · '),
+  github: work.links?.github,
+  live: work.links?.live
+}));
+
 export const PORTFOLIO_DATA: PortfolioData = {
   profile: {
     firstName: userData.firstName,
@@ -156,7 +181,7 @@ export const PORTFOLIO_DATA: PortfolioData = {
   marqueeWords: userData.marqueeWords,
   skills: userData.skills,
   selectedWorks: userData.selectedWorks as Project[],
-  genAIProjects: userData.projects as GenAIProject[],
+  genAIProjects: [...userData.projects as GenAIProject[], ...selectedWorkProjects],
   workExperience: userData.workExperience as WorkExperience[],
   education: userData.education,
   awards: userData.awards as Award[]

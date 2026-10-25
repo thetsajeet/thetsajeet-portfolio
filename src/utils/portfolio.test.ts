@@ -91,13 +91,49 @@ test('userData.json projects collection contains full-stack engineering prototyp
 });
 
 test('userData.json workExperience captures Citi and Finllect tenures', () => {
-  assert.ok(userData.workExperience.length >= 3);
-  const citiFullTime = userData.workExperience.find(w => w.company === 'Citi' && w.role.includes('Senior Software Engineer'));
+  assert.equal(userData.workExperience.length, 5);
+  const citiFullTime = userData.workExperience.find(w => w.company === 'Citi' && w.role === 'Senior Software Engineer');
   assert.ok(citiFullTime);
-  assert.ok(citiFullTime.highlights.length >= 3);
+  assert.ok(citiFullTime.highlights.some(h => h.includes('Arthur')));
+  assert.ok(citiFullTime.highlights.some(h => h.includes('10–15 days')));
 
   const finllect = userData.workExperience.find(w => w.company === 'Finllect');
   assert.ok(finllect);
+  assert.ok(finllect.role.includes('Intern'));
+  assert.ok(finllect.highlights.some(h => h.includes('Node.js')));
+
+  assert.deepEqual(
+    userData.workExperience.map(w => w.role),
+    [
+      'Senior Software Engineer',
+      'Software Engineer (C10)',
+      'Junior Software Engineer (C09)',
+      'Software Engineering Intern (C09)',
+      'Software Engineering Intern'
+    ]
+  );
+});
+
+test('moved case studies are available in the Projects collection', () => {
+  const projectIds = PORTFOLIO_DATA.genAIProjects.map(project => project.id);
+  assert.ok(projectIds.includes('form-factory'));
+  assert.ok(projectIds.includes('dbv-spring-boot'));
+  assert.ok(projectIds.includes('citi-policies-portal'));
+});
+
+test('moved case studies preserve all deep-dive content in Projects', () => {
+  for (const work of userData.selectedWorks) {
+    const project = PORTFOLIO_DATA.genAIProjects.find(item => item.id === work.id);
+    assert.ok(project);
+    assert.ok(project.storyBody.includes(work.deepDive.challenge));
+    assert.ok(project.storyBody.includes(work.deepDive.approach));
+    assert.ok(project.storyBody.includes(work.deepDive.discovery));
+    assert.ok(project.storyBody.includes(work.deepDive.impact));
+
+    for (const feature of work.deepDive.keyFeatures) {
+      assert.ok(project.storyBody.includes(`${feature.title}: ${feature.desc}`));
+    }
+  }
 });
 
 test('userData.json education and awards accurately reflect NIT Trichy and Hackathon honors', () => {
@@ -112,7 +148,10 @@ test('PORTFOLIO_DATA matches userData.json exactly as single source of truth', (
   assert.equal(PORTFOLIO_DATA.profile.role, userData.role);
   assert.equal(PORTFOLIO_DATA.profile.copyrightName, userData.copyrightName);
   assert.equal(PORTFOLIO_DATA.selectedWorks.length, userData.selectedWorks.length);
-  assert.equal(PORTFOLIO_DATA.genAIProjects.length, userData.projects.length);
+  assert.equal(
+    PORTFOLIO_DATA.genAIProjects.length,
+    userData.projects.length + userData.selectedWorks.length
+  );
   assert.equal(PORTFOLIO_DATA.workExperience.length, userData.workExperience.length);
   assert.equal(PORTFOLIO_DATA.skills.length, userData.skills.length);
 });

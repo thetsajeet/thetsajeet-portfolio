@@ -10,6 +10,40 @@ class SoundEngine {
   private backgroundAudio: HTMLAudioElement | null = null;
   private enabled: boolean = true;
   private isUnlocked: boolean = false;
+  private visibilityListenerAdded: boolean = false;
+
+  private handleVisibilityChange = () => {
+    if (document.visibilityState !== 'visible') {
+      this.backgroundAudio?.pause();
+    } else {
+      this.syncBackgroundAudio();
+    }
+
+    this.syncAudioContextState();
+  };
+
+  private handleAudioStateChange = () => {
+    this.syncAudioContextState();
+  };
+
+  private syncAudioContextState() {
+    if (!this.ac) return;
+
+    const shouldRun = this.enabled && this.isUnlocked && this.isPageVisible();
+    if (shouldRun && this.ac.state === 'suspended') {
+      void this.ac.resume().catch((error: unknown) => {
+        console.error('Unable to resume audio context.', error);
+      });
+    } else if (!shouldRun && this.ac.state === 'running') {
+      void this.ac.suspend().catch((error: unknown) => {
+        console.error('Unable to suspend audio context.', error);
+      });
+    }
+  }
+
+  private isPageVisible() {
+    return typeof document === 'undefined' || document.visibilityState === 'visible';
+  }
 
   private init() {
     if (this.ac) return;
@@ -17,6 +51,7 @@ class SoundEngine {
     if (!AudioContextClass) return;
 
     this.ac = new AudioContextClass();
+    this.ac.addEventListener('statechange', this.handleAudioStateChange);
     this.master = this.ac.createGain();
     this.master.gain.value = 0.28;
 
@@ -39,7 +74,7 @@ class SoundEngine {
   private syncBackgroundAudio() {
     if (typeof window === 'undefined') return;
 
-    if (!this.enabled) {
+    if (!this.enabled || !this.isPageVisible()) {
       this.backgroundAudio?.pause();
       return;
     }
@@ -64,16 +99,15 @@ class SoundEngine {
   }
 
   public unlock() {
+    if (typeof document !== 'undefined' && !this.visibilityListenerAdded) {
+      document.addEventListener('visibilitychange', this.handleVisibilityChange);
+      this.visibilityListenerAdded = true;
+    }
     this.syncBackgroundAudio();
     this.init();
     if (!this.ac) return;
-    if (this.ac.state === 'suspended') {
-      this.ac.resume().then(() => {
-        this.isUnlocked = true;
-      }).catch(() => {});
-    } else {
-      this.isUnlocked = true;
-    }
+    this.isUnlocked = true;
+    this.syncAudioContextState();
   }
 
   public toggle(): boolean {
@@ -83,6 +117,7 @@ class SoundEngine {
       this.drop();
     } else {
       this.backgroundAudio?.pause();
+      this.syncAudioContextState();
     }
     return this.enabled;
   }
@@ -95,7 +130,7 @@ class SoundEngine {
    * Delicate water drop sound
    */
   public drop(customFreq?: number) {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
@@ -130,7 +165,7 @@ class SoundEngine {
    * Resonant water bubble
    */
   public bubble() {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
@@ -162,7 +197,7 @@ class SoundEngine {
    * Subtle UI click / tick
    */
   public tick() {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
@@ -194,7 +229,7 @@ class SoundEngine {
    * Smooth swell / whoosh for modal transitions or cards
    */
   public whoosh() {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
@@ -233,7 +268,7 @@ class SoundEngine {
    * Success chime / victory sound
    */
   public chime() {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.isPageVisible()) return;
     this.unlock();
     if (!this.ac || !this.master) return;
 
