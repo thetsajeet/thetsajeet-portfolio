@@ -31,8 +31,6 @@ export const Hero: React.FC = () => {
         <div className="mt-14 md:mt-20 flex flex-wrap items-center justify-end gap-4 sm:gap-8 text-xs md:text-sm font-medium tracking-[0.08em] uppercase text-neutral-800">
           <span>{PORTFOLIO_DATA.profile.role.toUpperCase()}</span>
           <span className="text-neutral-400 font-bold">+</span>
-          <span>AGENTIC AI · FULLSTACK</span>
-          <span className="text-neutral-400 font-bold">+</span>
           <span>INDIA / REMOTE</span>
         </div>
 
