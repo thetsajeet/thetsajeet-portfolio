@@ -172,7 +172,7 @@ export const WaterGateIntro: React.FC<WaterGateIntroProps> = ({ onEnter }) => {
         <span>PORTFOLIO</span>
         <span className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>INDICATOR · SITE LIVE</span>
+          <span>LIVE</span>
         </span>
       </header>
 
@@ -203,15 +203,6 @@ export const WaterGateIntro: React.FC<WaterGateIntroProps> = ({ onEnter }) => {
           Press <kbd className="px-2 py-0.5 rounded bg-neutral-100 border border-neutral-300 text-black font-mono text-xs shadow-xs">Enter</kbd> or click anywhere to explore
         </p>
 
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            triggerEnter();
-          }}
-          className="mt-3 text-xs underline decoration-neutral-300 hover:decoration-black underline-offset-4 text-neutral-400 hover:text-black transition-colors cursor-pointer py-1"
-        >
-          Slow connection? Open the light version
-        </button>
       </footer>
     </div>
   );
