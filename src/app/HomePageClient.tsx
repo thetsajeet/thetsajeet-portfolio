@@ -185,7 +185,7 @@ export function HomePageClient({ initialHasEntered }: { initialHasEntered: boole
           setSelectedGenAI(p);
         }} />
         <AboutSection />
-        <AwardsBand />
+        {/* <AwardsBand /> */}
         {/* Testimonials section commented out - will be used at a later stage */}
         {/* <Testimonials /> */}
         <ContactSection onOpenResume={() => setResumeModalOpen(true)} />
