@@ -4,11 +4,7 @@ import { Mail, Check, ExternalLink, FileText, Send, Github } from 'lucide-react'
 import confetti from 'canvas-confetti';
 import { sound } from '../utils/sound';
 
-interface ContactSectionProps {
-  onOpenResume: () => void;
-}
-
-export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) => {
+export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [inquirySent, setInquirySent] = useState(false);
@@ -73,7 +69,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
       <div className="max-w-[1340px] mx-auto px-6 md:px-12 flex flex-col items-center text-center">
         {/* Call to action headline */}
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-neutral-900 max-w-3xl leading-[1.15]">
-          Let's build something scalable.
+          Let's build something <span className="bg-neutral-900 text-white px-2 font-semibold">GREAT</span> together.
         </h2>
 
         <p className="mt-6 text-lg sm:text-xl text-neutral-600 max-w-2xl font-normal">
@@ -125,16 +121,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
           </a>
 
           {/* Resume Button */}
-          <button
+          <a
+            href={PORTFOLIO_DATA.profile.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => {
               sound.tick();
-              onOpenResume();
             }}
-            className="h-16 flex items-center justify-center gap-2 font-mono text-sm uppercase tracking-wider liquid-button hover:bg-neutral-900 text-neutral-900 transition-colors cursor-pointer group"
+            className="h-16 flex items-center justify-center gap-2 font-mono text-sm uppercase tracking-wider liquid-button hover:bg-neutral-900 text-neutral-900 transition-colors group"
           >
             <FileText className="w-4 h-4 text-neutral-500 group-hover:text-white" />
             <span>Resume</span>
-          </button>
+          </a>
         </div>
 
         {/* Direct Quick Note Button */}

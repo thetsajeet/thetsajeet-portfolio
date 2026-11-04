@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Volume2, VolumeX, Menu, X, ArrowUpRight } from 'lucide-react';
 import { sound } from '../utils/sound';
+import { PORTFOLIO_DATA } from '../data/portfolio';
 
 interface NavbarProps {
   onOpenGame: () => void;
-  onOpenResume: () => void;
   onNavigate?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavigate }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onNavigate }) => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -100,17 +100,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavi
             <span>Play Game</span>
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping"></span>
           </button>
-          <button
+          <a
+            href={PORTFOLIO_DATA.profile.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => {
               sound.tick();
               onNavigate?.();
-              onOpenResume();
             }}
-            className="hover:text-black hover:underline underline-offset-8 transition-colors flex items-center gap-1 cursor-pointer font-medium"
+            className="hover:text-black hover:underline underline-offset-8 transition-colors flex items-center gap-1 font-medium"
           >
             <span>Resume</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-black" />
-          </button>
+          </a>
         </nav>
 
         {/* Right Action: Sound Toggle */}
@@ -198,16 +200,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGame, onOpenResume, onNavi
             >
               Play Game
             </button>
-            <button
-              onClick={() => {
+            <a
+                href={PORTFOLIO_DATA.profile.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
                 onNavigate?.();
-                onOpenResume();
                 setMobileMenuOpen(false);
-              }}
-              className="flex-1 py-3 px-4 rounded-lg border border-neutral-300 text-neutral-900 text-center font-medium"
+                }}
+                className="flex-1 py-3 px-4 rounded-lg border border-neutral-300 text-neutral-900 text-center font-medium"
             >
-              Resume PDF
-            </button>
+                Resume PDF
+            </a>
           </div>
         </div>
       )}

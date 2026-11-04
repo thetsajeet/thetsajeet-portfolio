@@ -175,36 +175,33 @@ const jsonLdGraph = {
         {
           '@type': 'SoftwareApplication',
           position: 1,
-          name: 'Rege.ai — Agentic Resume & Career Engine',
-          applicationCategory: 'BusinessApplication',
+          name: 'Shadow',
+          applicationCategory: 'DeveloperApplication',
           operatingSystem: 'Web',
-          url: 'https://regeai-eight.vercel.app/',
-          description: 'Autonomous LLM agents that parse job descriptions and synthesize zero-hallucination CVs on the fly.'
-        },
-        {
-          '@type': 'SoftwareApplication',
-          position: 2,
-          name: 'Citi Policies Portal & Smart Search',
-          applicationCategory: 'EnterpriseApplication',
-          operatingSystem: 'Web',
-          description: 'Regulatory infrastructure powering 10,000+ Citi employees with modular UI architecture and sub-second filtering.'
+          description: 'AI-powered source-linked documentation, Mermaid diagrams, code Q&A, and incremental sync for GitHub repositories.'
         },
         {
           '@type': 'SoftwareSourceCode',
-          position: 3,
+          position: 2,
           name: 'Spring Boot Database Validator',
           programmingLanguage: 'Java',
           codeRepository: 'https://github.com/thetsajeet/dbv-spring-boot-starter',
           description: 'Open-source Spring Boot auto-starter ensuring database schema integrity at boot.'
         },
         {
-          '@type': 'SoftwareApplication',
-          position: 4,
+          '@type': 'SoftwareSourceCode',
+          position: 3,
           name: 'Form Factory — Dynamic Schema Builder',
-          applicationCategory: 'DeveloperApplication',
-          operatingSystem: 'Web',
-          url: 'https://form-factory-rosy.vercel.app/',
+          programmingLanguage: 'TypeScript',
+          codeRepository: 'https://github.com/thetsajeet/form-factory',
           description: 'Intuitive drag-and-drop form canvas with typed JSON schema export and reactive validation.'
+        },
+        {
+          '@type': 'SoftwareSourceCode',
+          position: 4,
+          name: 'Questionnaire Aware Agent',
+          programmingLanguage: 'Python',
+          description: 'Agentic RAG and MCP system for evidence-backed questionnaire analysis and approval recommendations.'
         }
       ]
     }

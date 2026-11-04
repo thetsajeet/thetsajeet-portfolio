@@ -9,17 +9,17 @@
   "tagline": "SENIOR SOFTWARE ENGINEER + AGENTIC AI · FULLSTACK + INDIA / REMOTE",
   "headline": "I engineer high-scale distributed systems and intelligent software.",
   "subheadline": "Specializing in resilient backends, modular UI architectures, and Agentic AI.",
-  "aboutBio": "Over the last few years, I've engineered high-scale enterprise platforms for Citi, built asynchronous microservice backends, and pioneered open-source Agentic AI workflows. At my core, I care about system resilience and sub-second performance.",
+  "aboutBio": "I'm a Senior Software Engineer at Citi, where I build agentic AI systems, developer platforms, and enterprise applications. I enjoy turning complex workflows into reliable, useful software across AI, backend systems, and frontend architecture.",
   "aboutParagraphs": [
-    "At Citi, I architected and shipped the enterprise Policies Portal UI from scratch using modern modular architectures, empowering 10,000+ employees and cutting feature turnaround by 80%.",
-    "I have deep expertise spanning the full engineering spectrum: high-performance frontend interfaces (Next.js, React, Angular, TypeScript), resilient backend systems (Spring Boot, Node.js, Go, Express, gRPC, PostgreSQL, MongoDB), and Agentic AI (autonomous LLM agents, vector embeddings, RAG pipelines).",
-    "First Class with Distinction B.Tech graduate from NIT Trichy, where I built internal software at Delta Force and represented NIT Trichy FC in university football."
+    "At Citi, I built Arthur, an agentic risk-triage system, and a Model Context Protocol server used to connect internal AI applications with data. I have also worked on AI-assisted frontend migration, machine-learning infrastructure, and the Policies Portal.",
+    "Outside of work, I'm building Shadow, an AI-powered platform for source-linked GitHub repository documentation, code Q&A, Mermaid diagrams, and incremental sync. I also built a Questionnaire Aware Agent that uses RAG and MCP to analyze complex questionnaires and supporting documents. These projects bring together product-focused web development and applied AI.",
+    "I have a few go-to tools, but no forever stack. Give me a problem and the docs, and I'm happy to explore until I find the right tools for the job."
   ],
   "location": "India",
   "timeZone": "Asia/Kolkata",
   "status": "Open for exciting opportunities & collaborations",
   "email": "ajeet.tumuluru@gmail.com",
-  "resumeUrl": "https://thetsajeet.com/Ajeet_TS_Resume.pdf",
+  "resumeUrl": "/Ajeet_TS_Resume.pdf",
   "profileImage": "/assets/aistudio/image_b4d68d89.png",
   "links": {
     "website": "https://thetsajeet.com/",
@@ -27,14 +27,8 @@
     "linkedin": "https://www.linkedin.com/in/thetsajeet",
     "twitter": "https://x.com/iamtsajeet",
     "email": "mailto:ajeet.tumuluru@gmail.com",
-    "resume": "https://thetsajeet.com/Ajeet_TS_Resume.pdf"
+    "resume": "/Ajeet_TS_Resume.pdf"
   },
-  "stats": [
-    { "value": "10,000+", "label": "Employees Supported" },
-    { "value": "80%", "label": "Feature Time Saved" },
-    { "value": "1,000+", "label": "Policies Indexed" },
-    { "value": "Gold", "label": "Citi Hackathon 2024" }
-  ],
   "skills": [
     "Next.js",
     "React",
@@ -62,14 +56,14 @@
       "id": "ui-architecture",
       "number": "01",
       "title": "UI Architecture & Frontend",
-      "description": "Building performant, modular web applications with typed component libraries, lazy loading, and sub-second rendering.",
+      "description": "Building performant, modular web applications with thoughtful optimizations.",
       "badge": "Scalable Frontend"
     },
     {
       "id": "backend-distributed",
       "number": "02",
       "title": "Backend & Distributed Systems",
-      "description": "Engineering microservice architectures, high-throughput gateways, and asynchronous pipelines in Spring Boot, Go, and Node.js.",
+      "description": "Building scalable, resilient backends and distributed systems.",
       "badge": "Resilient Systems"
     },
     {
@@ -94,72 +88,6 @@
   ],
   "selectedWorks": [
     {
-      "id": "citi-policies-portal",
-      "title": "Citi Policies Portal & Smart Search",
-      "subtitle": "Critical regulatory infrastructure powering 10,000+ Citi employees worldwide",
-      "category": "Enterprise Architecture & UI",
-      "tagline": "Regulatory workflows, streamlined.",
-      "description": "Built the Policies Portal from the ground up to streamline policy breaches, waivers, and dispensations. Engineered reusable custom UI components like Single Item Transfer, cutting delivery time for new features by 80%, and spearheaded Smart Policy Search across 1,000+ policies.",
-      "role": "Technology Analyst (Senior Engineer)",
-      "timeline": "July 2023 — Present · Citi",
-      "tools": ["Angular", "TypeScript", "Modular Architecture", "REST APIs", "Oracle DB"],
-      "accentColor": "#0284C7",
-      "gradient": "from-sky-500 via-blue-600 to-indigo-800",
-      "mediaType": "interactive",
-      "previewQuote": "Gold Award at Citi India Hackathon 2024 and Bronze Award from Senior Leadership Team.",
-      "metrics": [
-        { "label": "Active Employees", "value": "10,000+" },
-        { "label": "Feature Dev Saved", "value": "80%" },
-        { "label": "FCP Improvement", "value": "25%" }
-      ],
-      "deepDive": {
-        "challenge": "Citi employees previously navigated cumbersome disparate systems to manage policy breaches, waivers, and search through 1,000+ complex compliance documents.",
-        "approach": "Architected a modular lazy-loaded single-page portal with custom reusable components (Single Item Transfer) and high-speed semantic search filtering.",
-        "discovery": "Eliminating multi-screen hops through reusable transfer components drastically reduced user error and accelerated compliance verification.",
-        "impact": "Deployed to 10,000+ global employees, improved First Contentful Paint by 25%, and earned internal Gold and Bronze leadership awards.",
-        "keyFeatures": [
-          { "title": "Smart Policy Search", "desc": "Sub-second filtering, multi-facet sorting, and custom policy grouping." },
-          { "title": "Single Item Transfer", "desc": "Reusable complex transfer pattern slashing feature dev time by 80%." },
-          { "title": "Modular Lazy Loading", "desc": "Enterprise architecture optimized for rapid bundle execution." }
-        ]
-      }
-    },
-    {
-      "id": "rege-ai",
-      "title": "Rege.ai — Agentic Resume & Career Engine",
-      "subtitle": "Autonomous LLM agents that parse job descriptions and synthesize zero-hallucination CVs on the fly.",
-      "category": "Agentic AI & Full-Stack",
-      "tagline": "Hyper-tailored resumes in under 3 seconds.",
-      "description": "Store all career milestones in one place. Autonomous LLM agents parse target job descriptions and dynamically orchestrate tailored resumes and CVs with strict zero-hallucination grounding in under 3 seconds.",
-      "role": "Creator & Lead Architect",
-      "timeline": "April 2025 — Present",
-      "tools": ["Next.js", "React", "TypeScript", "LLM Agents", "Tailwind CSS", "Vercel"],
-      "accentColor": "#6366F1",
-      "gradient": "from-indigo-500 via-purple-600 to-pink-600",
-      "mediaType": "interactive",
-      "previewQuote": "Live production tool generating grounded resumes in under 3 seconds.",
-      "metrics": [
-        { "label": "Generation Speed", "value": "< 3 sec" },
-        { "label": "Semantic Precision", "value": "99.2%" },
-        { "label": "Status", "value": "Live Web App" }
-      ],
-      "links": {
-        "live": "https://regeai-eight.vercel.app/",
-        "github": "https://github.com/thetsajeet/rege.ai"
-      },
-      "deepDive": {
-        "challenge": "Job seekers waste hours manually rewriting resumes for every job application, often suffering from keyword mismatches and ATS rejection.",
-        "approach": "Engineered an autonomous agentic pipeline that computes semantic vector distances between user career highlights and job requirements, writing customized bullet points.",
-        "discovery": "Grounding bullet generation in verified user milestones eliminates LLM hallucination and preserves authenticity.",
-        "impact": "Helps candidates instantly generate ATS-optimized resumes while maintaining 100% truthfulness.",
-        "keyFeatures": [
-          { "title": "Career Graph Storage", "desc": "Unified schema capturing achievements, metrics, and technology stacks." },
-          { "title": "Agentic JD Evaluator", "desc": "Autonomous extraction of must-have skills from arbitrary job postings." },
-          { "title": "Instant PDF Compilation", "desc": "Clean, ATS-ready typography with zero formatting regressions." }
-        ]
-      }
-    },
-    {
       "id": "form-factory",
       "title": "Form Factory — Dynamic Schema Builder",
       "subtitle": "Intuitive drag-and-drop form canvas with shareable validation engines",
@@ -173,11 +101,6 @@
       "gradient": "from-emerald-400 via-teal-500 to-cyan-600",
       "mediaType": "interactive",
       "previewQuote": "Seamless drag-and-drop canvas with instant state sharing.",
-      "metrics": [
-        { "label": "Canvas Latency", "value": "60 FPS" },
-        { "label": "State Management", "value": "Zustand" },
-        { "label": "Status", "value": "Live on Vercel" }
-      ],
       "links": {
         "live": "https://form-factory-rosy.vercel.app/",
         "github": "https://github.com/thetsajeet/form-factory"
@@ -208,11 +131,6 @@
       "gradient": "from-amber-400 via-orange-500 to-red-600",
       "mediaType": "interactive",
       "previewQuote": "Prevents catastrophic runtime production failures with eager boot checks.",
-      "metrics": [
-        { "label": "Execution Overhead", "value": "< 120ms" },
-        { "label": "Configuration", "value": "Zero-Config" },
-        { "label": "Ecosystem", "value": "Spring Boot Starter" }
-      ],
       "links": {
         "github": "https://github.com/thetsajeet/dbv-spring-boot-starter"
       },
@@ -231,6 +149,20 @@
   ],
   "projects": [
     {
+      "id": "shadow",
+      "title": "Shadow",
+      "tag": "AI Repository Documentation",
+      "summary": "AI-powered platform that generates source-linked documentation for GitHub repositories, with Mermaid diagrams, code Q&A, and incremental sync as repositories change.",
+      "storyHeading": "Understand a repository through its source",
+      "storyBody": [
+        "Shadow turns a GitHub repository into a navigable source of project knowledge.",
+        "It generates documentation linked back to source code, creates Mermaid diagrams, and answers questions about the codebase.",
+        "Incremental sync keeps repository knowledge current as code changes. Built with Next.js, TypeScript, PostgreSQL, pgvector, Inngest, and Gemini."
+      ],
+      "gradient": "from-violet-600 to-blue-700",
+      "demoType": "logoplay"
+    },
+    {
       "id": "smart-ai",
       "title": "Smart AI Agent",
       "tag": "Autonomous RAG & Web Search",
@@ -243,40 +175,7 @@
       ],
       "gradient": "from-blue-600 to-cyan-500",
       "demoType": "sorter",
-      "metrics": "Autonomous Tool Calling · Live Web Grounding",
       "github": "https://github.com/thetsajeet/smart-ai"
-    },
-    {
-      "id": "market-microservices",
-      "title": "Market — Microservices Architecture",
-      "tag": "Distributed Backend & gRPC",
-      "summary": "High-throughput e-commerce application built using microservices architecture with User, Cart, and Product Catalog services communicating over gRPC.",
-      "storyHeading": "Low-Latency Inter-Service RPC",
-      "storyBody": [
-        "Engineered decoupled microservices using Go and gRPC for sub-millisecond serialization.",
-        "Features independent PostgreSQL databases per service, containerized orchestration with Docker, and strict protocol buffer contract enforcement.",
-        "Handles peak cart checkout spikes with non-blocking concurrency and resilient circuit breaking."
-      ],
-      "gradient": "from-emerald-500 to-teal-700",
-      "demoType": "canditracker",
-      "metrics": "gRPC Streaming · Decoupled Microservices",
-      "github": "https://github.com/thetsajeet/Market"
-    },
-    {
-      "id": "atlas-ai",
-      "title": "Atlas.ai — Trip Planning Agent",
-      "tag": "Agentic Travel Orchestrator",
-      "summary": "AI itinerary agent that turns natural language travel prompts into cohesive day-by-day itineraries, flight arrangements, and verified local places.",
-      "storyHeading": "Multi-Step Travel Synthesis",
-      "storyBody": [
-        "Drop in a prompt like '4 days in Tokyo on a moderate budget with a focus on architecture and ramen', and Atlas.ai plans your trip.",
-        "The agent decomposes the prompt into geographical clusters, estimates transit times, and queries location APIs to compile actionable timelines.",
-        "Built with Next.js, TypeScript, and autonomous LLM orchestration."
-      ],
-      "gradient": "from-amber-500 to-rose-600",
-      "demoType": "undo",
-      "metrics": "Multi-City Routing · Instant Itinerary",
-      "github": "https://github.com/thetsajeet/atlas.ai"
     },
     {
       "id": "ngx-placeholder",
@@ -291,9 +190,23 @@
       ],
       "gradient": "from-purple-600 to-indigo-700",
       "demoType": "skate",
-      "metrics": "Published on NPM · Zero Dependencies",
       "github": "https://github.com/thetsajeet/ngx-placeholder",
       "npm": "https://www.npmjs.com/package/ngx-placeholder"
+    },
+    {
+      "id": "market-microservices",
+      "title": "Market — Microservices Architecture",
+      "tag": "Distributed Backend & gRPC",
+      "summary": "High-throughput e-commerce application built using microservices architecture with User, Cart, and Product Catalog services communicating over gRPC.",
+      "storyHeading": "Low-Latency Inter-Service RPC",
+      "storyBody": [
+        "Engineered decoupled microservices using Go and gRPC for sub-millisecond serialization.",
+        "Features independent PostgreSQL databases per service, containerized orchestration with Docker, and strict protocol buffer contract enforcement.",
+        "Handles peak cart checkout spikes with non-blocking concurrency and resilient circuit breaking."
+      ],
+      "gradient": "from-emerald-500 to-teal-700",
+      "demoType": "canditracker",
+      "github": "https://github.com/thetsajeet/Market"
     },
     {
       "id": "webcrawler-cli",
@@ -308,7 +221,6 @@
       ],
       "gradient": "from-slate-700 to-zinc-900",
       "demoType": "looped",
-      "metrics": "Concurrent Workers · High Throughput",
       "github": "https://github.com/thetsajeet/webcrawler"
     },
     {
@@ -324,77 +236,55 @@
       ],
       "gradient": "from-cyan-600 to-blue-700",
       "demoType": "logoplay",
-      "metrics": "API Gateway · Async Services",
       "live": "https://finllect.ae/"
     }
   ],
   "workExperience": [
     {
       "company": "Citi",
-      "role": "Senior Software Engineer",
-      "project": "Arthur Agentic AI",
-      "period": "July 2023 — Present",
-      "location": "India",
-      "focus": ["Agentic AI", "Risk management", "Document review", "Workflow automation"],
+      "role": "Senior Software Engineer (C11)",
+      "project": "Agentic AI & Enterprise Platforms",
+      "period": "July 2022 — Present",
+      "location": "Pune, India",
+      "focus": ["Python", "Google ADK", "MCP", "Spring Boot", "React", "Machine Learning"],
       "highlights": [
-        "Built Arthur, an agentic AI system that helps risk managers triage issues, review documents, and streamline complex workflows that can otherwise take 10–15 days.",
-        "Developed AI-assisted workflows that bring issue context and supporting documents together to help teams assess risk and move decisions forward faster."
+        "Built Arthur, an agentic AI risk-triage system that uses tools to gather context and support review workflows for New Activity Managers.",
+        "Designed and deployed an MCP server for secure, standardized data access and easier tool integration across internal AI applications.",
+        "Improved agent workflows with tool-call caching and parallel tool execution.",
+        "Built the full-stack Policy Search engine and Policies BWD applications from the ground up."
       ]
     },
     {
       "company": "Citi",
-      "role": "Software Engineer (C10)",
-      "project": "Configurable ML Prediction Framework",
-      "location": "India",
-      "focus": ["Machine learning", "Deep learning", "Runtime configuration", "Prediction pipelines"],
-      "highlights": [
-        "Designed a configurable machine-learning prediction framework that accepts runtime inputs such as datasets and ML/DL architecture choices, then runs predictions through a reusable pipeline.",
-        "Made it possible to adapt prediction workflows to different data and model requirements without rebuilding the framework for each use case."
-      ]
-    },
-    {
-      "company": "Citi",
-      "role": "Junior Software Engineer (C09)",
-      "project": "Policies Ecosystem Portal",
-      "location": "India",
-      "focus": ["Policy search", "Favourites", "Backend optimization", "UI optimization"],
-      "highlights": [
-        "Built an end-to-end policies portal where employees can search across policies and save frequently used policies to favourites.",
-        "Improved backend performance and UI responsiveness to make policy discovery and everyday workflows more efficient."
-      ]
-    },
-    {
-      "company": "Citi",
-      "role": "Software Engineering Intern (C09)",
-      "project": "Enterprise Operations Dashboard",
+      "role": "Software Development Engineer Intern",
+      "project": "Automated CI/CD Pipeline",
       "period": "May 2022 — July 2022",
-      "location": "India",
-      "focus": ["Angular", "Spring Boot", "Configurable CI/CD", "Process automation"],
+      "location": "Pune, India",
+      "focus": ["Jenkins", "Docker", "CI/CD", "Build Automation"],
       "highlights": [
-        "Contributed to an Angular and Spring Boot dashboard for enterprise database operations.",
-        "Orchestrated the delivery workflow through configurable CI/CD pipelines, reducing manual coordination and helping teams ship changes faster."
+        "Built an automated CI/CD build and deployment pipeline using Jenkins and Docker containers.",
+        "Automated manual build and deployment steps to make release cycles more efficient."
       ]
     },
     {
       "company": "Finllect",
-      "role": "Software Engineering Intern",
-      "project": "Financial Literacy Platform",
-      "period": "Dec 2020 — March 2021",
-      "location": "Remote",
-      "focus": ["Node.js", "Budgeting", "Transaction tracking", "Milestone rewards"],
+      "role": "Software Development Engineer Intern",
+      "project": "Financial Tracking API",
+      "period": "January 2022 — April 2022",
+      "location": "Dubai, UAE · Remote",
+      "focus": ["Node.js", "Express", "MongoDB", "REST APIs"],
       "highlights": [
-        "Built Node.js backend capabilities for a financial-literacy platform that helps Gen Z develop practical budgeting and planning habits.",
-        "Supported features for creating budgets, tracking and uploading transactions, and earning milestone-based coupons."
+        "Built modular RESTful services in Node.js and Express with MongoDB.",
+        "Developed capabilities for automated financial-goal tracking and user expense categorization."
       ]
     }
   ],
   "education": {
-    "institution": "National Institute of Technology (NIT) Trichy",
-    "degree": "B.Tech — First Class with Distinction",
-    "period": "2019 — 2023",
+    "institution": "National Institute of Technology, Trichy (NITT)",
+    "degree": "B.Tech in Production Engineering · CGPA: 8.64",
+    "period": "August 2019 — May 2023",
     "highlights": [
-      "Built and maintained internal tools at Delta Force NIT Trichy as a full-stack developer.",
-      "Professionally trained and played for the university football team NIT Trichy FC."
+      "Built and maintained internal tools at Delta Force NIT Trichy as a full-stack developer."
     ]
   },
   "awards": [

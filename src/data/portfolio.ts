@@ -1,10 +1,5 @@
 import userData from './userData.json';
 
-export interface ProjectMetric {
-  label: string;
-  value: string;
-}
-
 export interface ProjectKeyFeature {
   title: string;
   desc: string;
@@ -33,7 +28,6 @@ export interface Project {
   role: string;
   timeline: string;
   tools: string[];
-  metrics: ProjectMetric[];
   accentColor: string;
   gradient: string;
   mediaType: 'image' | 'video' | 'interactive';
@@ -51,7 +45,6 @@ export interface GenAIProject {
   storyBody: string[];
   gradient: string;
   demoType: 'sorter' | 'undo' | 'skate' | 'canditracker' | 'looped' | 'logoplay';
-  metrics: string;
   github?: string;
   npm?: string;
   live?: string;
@@ -116,7 +109,6 @@ export interface UserProfile {
     email: string;
     resume: string;
   };
-  stats: { value: string; label: string }[];
 }
 
 export interface PortfolioData {
@@ -149,10 +141,19 @@ const selectedWorkProjects: GenAIProject[] = userData.selectedWorks.map((work) =
   ],
   gradient: work.gradient,
   demoType: 'sorter',
-  metrics: work.metrics.map((metric) => `${metric.value} ${metric.label}`).join(' · '),
   github: work.links?.github,
   live: work.links?.live
 }));
+
+const projectOrder = [
+  'shadow',
+  'smart-ai',
+  'webcrawler-cli',
+  'form-factory',
+  'ngx-placeholder',
+  'market-microservices'
+];
+const allProjects = [...userData.projects as GenAIProject[], ...selectedWorkProjects];
 
 export const PORTFOLIO_DATA: PortfolioData = {
   profile: {
@@ -175,13 +176,17 @@ export const PORTFOLIO_DATA: PortfolioData = {
     resumeUrl: userData.resumeUrl,
     profileImage: userData.profileImage,
     links: userData.links,
-    stats: userData.stats
   },
   pillars: userData.pillars,
   marqueeWords: userData.marqueeWords,
   skills: userData.skills,
   selectedWorks: userData.selectedWorks as Project[],
-  genAIProjects: [...userData.projects as GenAIProject[], ...selectedWorkProjects],
+  genAIProjects: allProjects.sort((a, b) => {
+    const aOrder = projectOrder.indexOf(a.id);
+    const bOrder = projectOrder.indexOf(b.id);
+    return (aOrder < 0 ? projectOrder.length : aOrder) -
+      (bOrder < 0 ? projectOrder.length : bOrder);
+  }),
   workExperience: userData.workExperience as WorkExperience[],
   education: userData.education,
   awards: userData.awards as Award[]

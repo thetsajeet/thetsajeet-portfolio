@@ -13,32 +13,19 @@ import { AwardsBand } from '../components/AwardsBand';
 import { ContactSection } from '../components/ContactSection';
 import { Footer } from '../components/Footer';
 import { TopLoader } from '../components/TopLoader';
-import { GenAIProject } from '../data/portfolio';
 import { Droplets, ArrowUp } from 'lucide-react';
 import { sound } from '../utils/sound';
 import { WaterGateIntro } from '../components/WaterGateIntro';
 
 // Code-split heavy interactive modals and entry animations to optimize Lighthouse performance
-const GenAIModal = dynamic(
-  () => import('../components/GenAIModal').then((mod) => mod.GenAIModal),
-  { ssr: false }
-);
-
 const MemoryGameModal = dynamic(
   () => import('../components/MemoryGameModal').then((mod) => mod.MemoryGameModal),
   { ssr: false }
 );
 
-const ResumeModal = dynamic(
-  () => import('../components/ResumeModal').then((mod) => mod.ResumeModal),
-  { ssr: false }
-);
-
 export function HomePageClient({ initialHasEntered }: { initialHasEntered: boolean }) {
   const [hasEntered, setHasEntered] = useState<boolean>(initialHasEntered);
-  const [selectedGenAI, setSelectedGenAI] = useState<GenAIProject | null>(null);
   const [gameModalOpen, setGameModalOpen] = useState(false);
-  const [resumeModalOpen, setResumeModalOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isNavigating, setIsNavigating] = useState(false);
 
@@ -171,7 +158,6 @@ export function HomePageClient({ initialHasEntered }: { initialHasEntered: boole
       {/* Main Website Structure */}
       <Navbar
         onOpenGame={() => setGameModalOpen(true)}
-        onOpenResume={() => setResumeModalOpen(true)}
         onNavigate={triggerNavigation}
       />
 
@@ -180,41 +166,23 @@ export function HomePageClient({ initialHasEntered }: { initialHasEntered: boole
         <Pillars />
         <MarqueeBanner />
         <Career />
-        <GenAIProjects onSelectProject={(p) => {
-          triggerNavigation();
-          setSelectedGenAI(p);
-        }} />
+        <GenAIProjects />
         <AboutSection />
         {/* <AwardsBand /> */}
         {/* Testimonials section commented out - will be used at a later stage */}
         {/* <Testimonials /> */}
-        <ContactSection onOpenResume={() => setResumeModalOpen(true)} />
+        <ContactSection />
       </main>
 
       <Footer
         onOpenGame={() => setGameModalOpen(true)}
-        onOpenResume={() => setResumeModalOpen(true)}
         onNavigate={triggerNavigation}
       />
-
-      {selectedGenAI && (
-        <GenAIModal
-          project={selectedGenAI}
-          onClose={() => setSelectedGenAI(null)}
-        />
-      )}
 
       {gameModalOpen && (
         <MemoryGameModal
           isOpen={gameModalOpen}
           onClose={() => setGameModalOpen(false)}
-        />
-      )}
-
-      {resumeModalOpen && (
-        <ResumeModal
-          isOpen={resumeModalOpen}
-          onClose={() => setResumeModalOpen(false)}
         />
       )}
     </div>

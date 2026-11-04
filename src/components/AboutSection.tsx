@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { PORTFOLIO_DATA } from '../data/portfolio';
-import { MapPin, Code2 } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { sound } from '../utils/sound';
 
 export const AboutSection: React.FC = () => {
@@ -26,20 +26,6 @@ export const AboutSection: React.FC = () => {
                 <p key={i} className="text-base md:text-lg text-neutral-600">
                   {para}
                 </p>
-              ))}
-            </div>
-
-            {/* Quick Metrics */}
-            <div className="mt-12 pt-8 border-t border-neutral-200 grid grid-cols-2 sm:grid-cols-4 gap-6">
-              {PORTFOLIO_DATA.profile.stats.map((stat, i) => (
-                <div key={i} className="flex flex-col">
-                  <span className="text-2xl md:text-3xl font-bold font-mono text-neutral-900">
-                    {stat.value}
-                  </span>
-                  <span className="text-xs text-neutral-500 mt-1 uppercase tracking-wide">
-                    {stat.label}
-                  </span>
-                </div>
               ))}
             </div>
 
