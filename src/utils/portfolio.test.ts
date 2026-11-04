@@ -13,17 +13,18 @@ test('userData.json contains exact personal identifiers for T S Ajeet', () => {
   assert.equal(userData.headline, 'I engineer high-scale distributed systems and intelligent software.');
   assert.equal(userData.subtitle, 'Specializing in resilient backends, modular UI architectures, and Agentic AI.');
   assert.equal(userData.location, 'India');
-  assert.equal(userData.resumeUrl, 'https://thetsajeet.com/Ajeet_TS_Resume.pdf');
+  assert.equal(userData.resumeUrl, '/Ajeet_TS_Resume.pdf');
   assert.equal(userData.profileImage, '/assets/aistudio/image_b4d68d89.png');
 });
 
-test('userData.json aboutBio and paragraphs reflect high-scale enterprise platforms and system resilience', () => {
-  assert.ok(userData.aboutBio.includes('engineered high-scale enterprise platforms for Citi'));
-  assert.ok(userData.aboutBio.includes('sub-second performance'));
+test('userData.json about copy reflects resume experience and current projects', () => {
+  assert.ok(userData.aboutBio.includes('Senior Software Engineer at Citi'));
+  assert.ok(userData.aboutBio.includes('agentic AI systems'));
   assert.ok(!userData.aboutBio.includes('Thinker | Tinkerer | Technologist'));
   assert.ok(userData.aboutParagraphs.length >= 3);
   assert.ok(userData.aboutParagraphs.some(p => p.includes('Citi')));
-  assert.ok(userData.aboutParagraphs.some(p => p.includes('NIT Trichy')));
+  assert.ok(userData.aboutParagraphs.some(p => p.includes('Shadow')));
+  assert.ok(userData.aboutParagraphs.some(p => p.includes('no forever stack')));
 });
 
 test('userData.json social and contact links are fully defined with authentic profiles', () => {
@@ -32,7 +33,7 @@ test('userData.json social and contact links are fully defined with authentic pr
   assert.equal(userData.links.linkedin, 'https://www.linkedin.com/in/thetsajeet');
   assert.equal(userData.links.twitter, 'https://x.com/iamtsajeet');
   assert.equal(userData.links.email, 'mailto:ajeet.tumuluru@gmail.com');
-  assert.equal(userData.links.resume, 'https://thetsajeet.com/Ajeet_TS_Resume.pdf');
+  assert.equal(userData.links.resume, '/Ajeet_TS_Resume.pdf');
 });
 
 test('userData.json pillars use active gerunds for UI architecture, backend distributed systems, and agentic AI', () => {
@@ -46,38 +47,48 @@ test('userData.json pillars use active gerunds for UI architecture, backend dist
   assert.ok(uiPillar?.description.startsWith('Building performant'));
 
   const backendPillar = userData.pillars.find(p => p.id === 'backend-distributed');
-  assert.ok(backendPillar?.description.startsWith('Engineering microservice'));
+  assert.ok(backendPillar?.description.startsWith('Building scalable'));
+  assert.ok(!backendPillar?.description.includes('Spring Boot'));
 
   const aiPillar = userData.pillars.find(p => p.id === 'agentic-ai');
   assert.ok(aiPillar?.description.startsWith('Architecting autonomous'));
 });
 
-test('userData.json selectedWorks contains Citi, Rege.ai, Form Factory, and DBV Spring Boot starter', () => {
-  assert.ok(userData.selectedWorks.length >= 4);
+test('selectedWorks excludes removed showcases and retains the remaining projects', () => {
+  assert.equal(userData.selectedWorks.length, 2);
   const ids = userData.selectedWorks.map(w => w.id);
-  assert.ok(ids.includes('citi-policies-portal'));
-  assert.ok(ids.includes('rege-ai'));
+  assert.ok(!ids.includes('citi-policies-portal'));
+  assert.ok(!ids.includes('rege-ai'));
   assert.ok(ids.includes('form-factory'));
   assert.ok(ids.includes('dbv-spring-boot'));
+  assert.ok(!('stats' in userData));
 
   for (const work of userData.selectedWorks) {
     assert.ok(work.title.length > 0);
     assert.ok(work.role.length > 0);
     assert.ok(work.timeline.length > 0);
     assert.ok(work.tools.length >= 3);
-    assert.ok(work.metrics.length >= 2);
     assert.ok(work.deepDive.challenge.length > 20);
     assert.ok(work.deepDive.discovery.length > 20);
     assert.ok(work.deepDive.keyFeatures.length >= 2);
   }
 });
 
-test('userData.json projects collection contains full-stack engineering prototypes', () => {
+test('userData.json projects collection includes Shadow and excludes removed showcases', () => {
   assert.ok(userData.projects.length >= 6);
   const ids = userData.projects.map(p => p.id);
+  assert.deepEqual(PORTFOLIO_DATA.genAIProjects.slice(0, 6).map(p => p.id), [
+    'shadow',
+    'smart-ai',
+    'webcrawler-cli',
+    'form-factory',
+    'ngx-placeholder',
+    'market-microservices'
+  ]);
   assert.ok(ids.includes('smart-ai'));
   assert.ok(ids.includes('market-microservices'));
-  assert.ok(ids.includes('atlas-ai'));
+  assert.ok(ids.includes('shadow'));
+  assert.ok(!ids.includes('atlas-ai'));
   assert.ok(ids.includes('ngx-placeholder'));
   assert.ok(ids.includes('webcrawler-cli'));
   assert.ok(ids.includes('finllect-gateway'));
@@ -91,11 +102,10 @@ test('userData.json projects collection contains full-stack engineering prototyp
 });
 
 test('userData.json workExperience captures Citi and Finllect tenures', () => {
-  assert.equal(userData.workExperience.length, 5);
-  const citiFullTime = userData.workExperience.find(w => w.company === 'Citi' && w.role === 'Senior Software Engineer');
+  const citiFullTime = userData.workExperience.find(w => w.company === 'Citi' && w.role === 'Senior Software Engineer (C11)');
   assert.ok(citiFullTime);
   assert.ok(citiFullTime.highlights.some(h => h.includes('Arthur')));
-  assert.ok(citiFullTime.highlights.some(h => h.includes('10–15 days')));
+  assert.ok(citiFullTime.highlights.some(h => h.includes('MCP server')));
 
   const finllect = userData.workExperience.find(w => w.company === 'Finllect');
   assert.ok(finllect);
@@ -105,20 +115,21 @@ test('userData.json workExperience captures Citi and Finllect tenures', () => {
   assert.deepEqual(
     userData.workExperience.map(w => w.role),
     [
-      'Senior Software Engineer',
-      'Software Engineer (C10)',
-      'Junior Software Engineer (C09)',
-      'Software Engineering Intern (C09)',
-      'Software Engineering Intern'
+      'Senior Software Engineer (C11)',
+      'Software Development Engineer Intern',
+      'Software Development Engineer Intern'
     ]
   );
 });
 
-test('moved case studies are available in the Projects collection', () => {
+test('remaining selected works are available in the Projects collection', () => {
   const projectIds = PORTFOLIO_DATA.genAIProjects.map(project => project.id);
   assert.ok(projectIds.includes('form-factory'));
   assert.ok(projectIds.includes('dbv-spring-boot'));
-  assert.ok(projectIds.includes('citi-policies-portal'));
+  assert.ok(!projectIds.includes('citi-policies-portal'));
+  assert.ok(!projectIds.includes('rege-ai'));
+  assert.ok(!projectIds.includes('atlas-ai'));
+  assert.ok(projectIds.includes('shadow'));
 });
 
 test('moved case studies preserve all deep-dive content in Projects', () => {
@@ -137,8 +148,9 @@ test('moved case studies preserve all deep-dive content in Projects', () => {
 });
 
 test('userData.json education and awards accurately reflect NIT Trichy and Hackathon honors', () => {
-  assert.ok(userData.education.institution.includes('NIT Trichy') || userData.education.institution.includes('National Institute of Technology (NIT) Trichy'));
-  assert.ok(userData.education.degree.includes('Distinction'));
+  assert.ok(userData.education.institution.includes('Trichy'));
+  assert.ok(userData.education.degree.includes('Production Engineering'));
+  assert.ok(userData.education.degree.includes('8.64'));
   assert.ok(userData.awards.length >= 3);
   assert.ok(userData.awards.some(a => a.title.includes('Citi')));
 });

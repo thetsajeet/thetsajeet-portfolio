@@ -1,13 +1,9 @@
 import React, { useRef } from 'react';
 import { ChevronLeft, ChevronRight, Cpu, Github, ExternalLink, Package } from 'lucide-react';
-import { PORTFOLIO_DATA, GenAIProject } from '../data/portfolio';
+import { PORTFOLIO_DATA } from '../data/portfolio';
 import { sound } from '../utils/sound';
 
-interface GenAIProjectsProps {
-  onSelectProject: (project: GenAIProject) => void;
-}
-
-export const GenAIProjects: React.FC<GenAIProjectsProps> = ({ onSelectProject }) => {
+export const GenAIProjects: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -63,11 +59,7 @@ export const GenAIProjects: React.FC<GenAIProjectsProps> = ({ onSelectProject })
           {PORTFOLIO_DATA.genAIProjects.map((item, idx) => (
             <div
               key={item.id}
-              onClick={() => {
-                sound.whoosh();
-                onSelectProject(item);
-              }}
-              className="flex-none w-[320px] sm:w-[400px] md:w-[436px] flex flex-col group cursor-pointer"
+              className="flex-none w-[320px] sm:w-[400px] md:w-[436px] flex flex-col group"
             >
               {/* Media Card */}
               <div className="relative aspect-[436/540] rounded-2xl overflow-hidden bg-neutral-900 mb-6 shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1">
@@ -87,9 +79,6 @@ export const GenAIProjects: React.FC<GenAIProjectsProps> = ({ onSelectProject })
                 </div>
 
                 <div className="absolute bottom-6 left-6 right-6 p-5 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 text-white">
-                  <div className="text-xs font-mono uppercase text-emerald-400 mb-1">
-                    {item.metrics}
-                  </div>
                   <h3 className="text-xl font-medium tracking-tight">
                     {item.title}
                   </h3>
@@ -98,12 +87,7 @@ export const GenAIProjects: React.FC<GenAIProjectsProps> = ({ onSelectProject })
                   </p>
 
                   <div className="mt-4 flex items-start justify-between pt-3 border-t border-white/10">
-                    <div className="flex items-center gap-1.5 text-xs text-white/70 group-hover:text-white transition-colors">
-                      <span>View project</span>
-                      <span>→</span>
-                    </div>
-
-                    <ul className="flex flex-col items-end gap-1.5 text-xs" onClick={(e) => e.stopPropagation()}>
+                    <ul className="ml-auto flex flex-col items-end gap-1.5 text-xs">
                       {item.live && (
                         <li key="site">
                           <a

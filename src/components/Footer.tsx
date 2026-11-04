@@ -5,11 +5,10 @@ import { sound } from '../utils/sound';
 
 interface FooterProps {
   onOpenGame?: () => void;
-  onOpenResume?: () => void;
   onNavigate?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenGame, onOpenResume, onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenGame, onNavigate }) => {
   const [localTime, setLocalTime] = useState<string>('');
 
   useEffect(() => {
@@ -134,15 +133,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenGame, onOpenResume, onNavi
                   </button>
                 </li>
                 <li>
-                  <button
-                    onClick={() => {
-                      handleLinkClick();
-                      onOpenResume?.();
-                    }}
-                    className="hover:text-black transition-colors text-left cursor-pointer"
+                  <a
+                    href={PORTFOLIO_DATA.profile.resumeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={handleLinkClick}
+                    className="hover:text-black transition-colors"
                   >
                     Resume PDF
-                  </button>
+                  </a>
                 </li>
                 <li>
                   <a
