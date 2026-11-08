@@ -3,7 +3,8 @@ import test from 'node:test';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { BlogCoverArt } from '../components/BlogCoverArt';
 import { BlogMarkdown } from '../components/BlogMarkdown';
-import { getBlogPosts, getHeadings, isValidPublishedAt } from '../data/blog';
+import BlogLayout from '../app/blog/layout';
+import { getBlogPost, getBlogPosts, getHeadings, isValidPublishedAt } from '../data/blog';
 import { serializeJsonLd } from './json-ld';
 
 test('blog posts are loaded from Markdown with frontmatter and generated reading time', () => {
@@ -12,12 +13,34 @@ test('blog posts are loaded from Markdown with frontmatter and generated reading
 
   assert.ok(post);
   assert.equal(post.title, "Demystifying Java Multithreading: A Beginner's Guide to Doing More at Once");
-  assert.equal(post.order, 10);
+  assert.equal(post.order, 1);
   assert.equal(post.category, 'Java');
   assert.ok(post.readingTime.endsWith('min read'));
   assert.ok(post.headings.some(({ text }) => text === 'The Core Concepts: Process vs. Thread'));
   assert.equal(post.coverImage, undefined);
+  assert.equal(getBlogPost('java-multithreading')?.slug, 'java-multithreading');
   assert.ok(posts.every((current, index) => index === 0 || posts[index - 1].order <= current.order));
+});
+
+test('numbered Spring Data REST post loads with an unnumbered URL slug and formatted content', () => {
+  const post = getBlogPost('spring-data-rest');
+
+  assert.ok(post);
+  assert.equal(post.title, 'Demystifying Spring Data REST: Zero to API in Seconds');
+  assert.equal(post.order, 2);
+  assert.equal(post.publishedAt, '2026-11-08');
+  assert.ok(post.headings.some(({ text }) => text === 'Core Features You Need to Know'));
+  assert.equal(getBlogPost('002-spring-data-rest'), undefined);
+  const markup = renderToStaticMarkup(<BlogMarkdown content={post.content} excerpt={post.excerpt} />);
+  assert.match(markup, /language-java/);
+  assert.match(markup, /language-yaml/);
+  assert.doesNotMatch(markup, /<h1/);
+});
+
+test('blog navigation links directly to the portfolio on the current site', () => {
+  const markup = renderToStaticMarkup(<BlogLayout><p>Blog content</p></BlogLayout>);
+
+  assert.match(markup, /href="\/\?autostart=1"[^>]*>Portfolio/);
 });
 
 test('heading extraction skips fenced code while preserving heading slugs', () => {

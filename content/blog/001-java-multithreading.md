@@ -1,5 +1,5 @@
 ---
-order: 10
+order: 1
 title: "Demystifying Java Multithreading: A Beginner's Guide to Doing More at Once"
 subtitle: "Understand processes, threads, and the first steps to running concurrent work in Java."
 category: "Java"

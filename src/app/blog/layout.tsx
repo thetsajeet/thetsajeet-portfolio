@@ -30,7 +30,7 @@ export default function BlogLayout({ children }: Readonly<{ children: React.Reac
         </Link>
         <nav aria-label="Main navigation" className="blog-nav">
           <Link href="/blog">Writing</Link>
-          <a href="https://thetsajeet.com/">Portfolio <span aria-hidden="true">↗</span></a>
+          <Link href="/?autostart=1">Portfolio <span aria-hidden="true">↗</span></Link>
         </nav>
       </header>
       {children}

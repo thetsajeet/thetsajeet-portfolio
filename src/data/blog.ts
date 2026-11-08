@@ -126,7 +126,7 @@ export function getHeadings(content: string): BlogHeading[] {
 function readPost(fileName: string): BlogPost {
   const filePath = path.join(contentDirectory, fileName);
   const { data, content } = matter(readFileSync(filePath, 'utf8'));
-  const slug = path.basename(fileName, '.md');
+  const slug = path.basename(fileName, '.md').replace(/^\d{3,}-/, '');
   const wordCount = content.trim().split(/\s+/).filter(Boolean).length;
   const coverDetails = getCoverDetails(data, fileName);
 

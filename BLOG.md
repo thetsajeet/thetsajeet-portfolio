@@ -4,11 +4,11 @@ The blog is part of this Next.js project and lives at [`thetsajeet.com/blog`](ht
 
 ## Writing a post
 
-Create `content/blog/<post-slug>.md` with these required frontmatter fields. The filename becomes the article URL slug. Use a unique positive `order` number to control its position in the blog listing; lower numbers appear first. Leave gaps between numbers (for example, 10, 20, 30) so you can insert posts later without renumbering everything.
+Create `content/blog/001-short-name.md`, `002-short-name.md`, and so on, using the next available number in release order. The numeric prefix is for organizing files and is omitted from the article URL: `001-short-name.md` becomes `/blog/short-name`. Keep the short name unique and stable so existing links continue to work. Use a unique positive `order` number to control the listing independently; lower numbers appear first.
 
 ```yaml
 ---
-order: 10
+order: 1
 title: "A useful title"
 subtitle: "A short description for the article page."
 category: "Engineering"
