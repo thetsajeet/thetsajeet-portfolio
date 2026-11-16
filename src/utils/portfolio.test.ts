@@ -77,7 +77,8 @@ test('selectedWorks excludes removed showcases and retains the remaining project
 test('userData.json projects collection includes Shadow and excludes removed showcases', () => {
   assert.ok(userData.projects.length >= 6);
   const ids = userData.projects.map(p => p.id);
-  assert.deepEqual(PORTFOLIO_DATA.genAIProjects.slice(0, 6).map(p => p.id), [
+  assert.deepEqual(PORTFOLIO_DATA.genAIProjects.slice(0, 7).map(p => p.id), [
+    'review-pulse',
     'shadow',
     'smart-ai',
     'webcrawler-cli',
@@ -92,6 +93,7 @@ test('userData.json projects collection includes Shadow and excludes removed sho
   assert.ok(ids.includes('ngx-placeholder'));
   assert.ok(ids.includes('webcrawler-cli'));
   assert.ok(ids.includes('finllect-gateway'));
+  assert.ok(ids.includes('review-pulse'));
 
   for (const proj of userData.projects) {
     assert.ok(proj.title.length > 0);
@@ -99,6 +101,14 @@ test('userData.json projects collection includes Shadow and excludes removed sho
     assert.ok(proj.storyHeading.length > 0);
     assert.ok(proj.storyBody.length >= 2);
   }
+});
+
+test('Review Pulse is listed with its repository and prototype limitations', () => {
+  const project = PORTFOLIO_DATA.genAIProjects.find(item => item.id === 'review-pulse');
+  assert.ok(project);
+  assert.equal(project.github, 'https://github.com/thetsajeet/review-pulse-next');
+  assert.ok(project.summary.includes('mock data'));
+  assert.ok(project.summary.includes('does not connect to or publish on Google Business Profile'));
 });
 
 test('userData.json workExperience captures Citi and Finllect tenures', () => {

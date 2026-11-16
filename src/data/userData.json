@@ -237,6 +237,21 @@
       "gradient": "from-cyan-600 to-blue-700",
       "demoType": "logoplay",
       "live": "https://finllect.ae/"
+    },
+    {
+      "id": "review-pulse",
+      "title": "Review Pulse",
+      "tag": "AI Review Triage",
+      "summary": "Human-in-the-loop review triage prototype that uses LangGraph and Gemini to analyze seeded reviews and draft replies. It uses mock data and does not connect to or publish on Google Business Profile.",
+      "storyHeading": "AI-assisted replies, with the owner in control",
+      "storyBody": [
+        "Review Pulse helps local business owners triage incoming reviews with AI-generated reply drafts they can refine, approve, or reject.",
+        "The prototype uses a LangGraph and Gemini workflow, with a Next.js and React interface and a REST API for review and draft actions.",
+        "It currently runs on seeded mock reviews with in-memory data. Approvals and rejections are demo decisions only; Google Business Profile integration and publishing are not implemented."
+      ],
+      "gradient": "from-sky-600 to-indigo-700",
+      "demoType": "sorter",
+      "github": "https://github.com/thetsajeet/review-pulse-next"
     }
   ],
   "workExperience": [

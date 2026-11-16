@@ -179,6 +179,12 @@ export const WaterGateIntro: React.FC<WaterGateIntroProps> = ({ onEnter }) => {
       {/* Central Monogram "TS" Initials with Water Halo */}
       <div className="relative z-10 flex flex-col items-center justify-center group pointer-events-none">
         <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+          <div aria-hidden="true" className="water-gate-ripples absolute inset-0 rounded-full">
+            <span className="water-gate-ripple" />
+            <span className="water-gate-ripple" />
+            <span className="water-gate-ripple" />
+          </div>
+
           {/* Diffuse water glow behind initials */}
           <div className="absolute inset-0 bg-neutral-100/60 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-700 ease-out"></div>
 

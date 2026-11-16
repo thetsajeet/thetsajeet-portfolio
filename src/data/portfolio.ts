@@ -146,6 +146,7 @@ const selectedWorkProjects: GenAIProject[] = userData.selectedWorks.map((work) =
 }));
 
 const projectOrder = [
+  'review-pulse',
   'shadow',
   'smart-ai',
   'webcrawler-cli',
