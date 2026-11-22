@@ -18,7 +18,7 @@
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.546.0",
     "mermaid": "^12.2.0",
-    "next": "^16.4.2",
+    "next": "16.4.6",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
