@@ -171,15 +171,15 @@ export const Career: React.FC = () => {
                   </div>
 
                   <div className="lg:col-span-5 relative flex items-center justify-center">
-                    <div className="relative w-full aspect-[16/9] sm:aspect-[4/3] lg:aspect-[4/5] lg:max-h-[62vh] rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200/80 shadow-sm">
+                    <div className="relative w-full min-h-[11rem] sm:aspect-[4/3] lg:aspect-[4/5] lg:max-h-[62vh] rounded-3xl overflow-hidden bg-neutral-100 border border-neutral-200/80 shadow-sm">
                       <div className={`absolute inset-0 bg-gradient-to-br ${careerGradients[idx % careerGradients.length]} opacity-90`} />
                       <div className="absolute inset-0 bg-black/10 backdrop-blur-[2px]" />
                       <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/20 blur-3xl pointer-events-none" />
-                      <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
+                      <div className="relative sm:absolute sm:inset-0 min-h-[11rem] h-full flex flex-col items-center justify-center px-6 py-6 sm:p-8 text-center text-white">
                         <span className="text-xs uppercase tracking-widest font-mono text-white/80 mb-4 bg-black/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
                           {job.company}
                         </span>
-                        <h4 className="text-xl md:text-2xl font-medium tracking-tight max-w-sm leading-relaxed drop-shadow-sm">
+                        <h4 className="text-lg sm:text-xl md:text-2xl font-medium tracking-tight max-w-sm leading-relaxed drop-shadow-sm">
                           {job.highlights[1] || job.highlights[0]}
                         </h4>
                       </div>
