@@ -108,7 +108,7 @@ export const Career: React.FC = () => {
   const jobCount = PORTFOLIO_DATA.workExperience.length;
 
   return (
-    <section id="works" className="w-full pt-20 md:pt-32 pb-32 md:pb-48 border-b border-neutral-200">
+    <section id="works" className="w-full py-20 md:py-32 border-b border-neutral-200">
       <div className="max-w-[1340px] mx-auto px-6 md:px-12">
         <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-baseline justify-between gap-4">
           <h2 className="text-5xl md:text-7xl font-serif italic text-neutral-900 tracking-tight">
@@ -198,6 +198,7 @@ export const Career: React.FC = () => {
               </article>
             </div>
           ))}
+          <div aria-hidden="true" className="h-[15vh] md:h-[25vh]" />
         </div>
       </div>
     </section>
